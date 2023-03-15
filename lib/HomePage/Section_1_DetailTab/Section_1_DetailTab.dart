@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../CertificateofRegistry/CertificateofRegistry.dart';
 import '../../Const/Colors.dart';
@@ -12,15 +13,15 @@ class Section_1_DetailTab extends StatefulWidget {
 
 class _Section_TabState extends State<Section_1_DetailTab> {
   final List<String> section1 = [
-    "Certificate of Registry",
-    "Articles of Agreement (valid 1 yr)",
-    "Minimum Safe Manning Certificate",
-    "Radio Station License",
-    "Maltese Ships Official Log Book with regular inspection entries for drills/accomodation/LSA/FFE",
-    "MS Notices File",
-    "Technical Notes",
-    "Merchant Shipping Act (Cap.234)",
-    "MS Act Subsidiary Legislation",
+    "CERTIFICATE OF REGISTRY",
+    "ARTICLES OF AGREEMENT (VALID 1 YR)",
+    "MINIMUM SAFE MANNING CERTIFICATE",
+    "RADIO STATION LICENSE",
+    "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE",
+    "MS NOTICES FILE",
+    "TECHNICAL NOTES",
+    "MERCHANT SHIPPING ACT (CAP.234)",
+    "MS ACT SUBSIDIARY LEGISLATION",
   ];
   @override
   Widget build(BuildContext context) {
@@ -40,23 +41,15 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                 height: 78,
                 width: 360,
                 child: ListTile(
-                  title: Text(
-                    section1[index],
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: CS_TextleColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                  ),
+                  title: Text(section1[index],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: CS_Font),
                   subtitle: Row(
                     children: [
                       Text(
                         "VALID",
-                        style: TextStyle(
-                            color: CS_TextleColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
+                        style: CS_Font,
                       ),
                       SizedBox(
                         width: 5,

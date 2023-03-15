@@ -25,22 +25,37 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
             icon: Icon(Icons.arrow_back, color: CS_TextleColor)),
         elevation: 0,
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          color: CS_BodyContainerColor,
-        ),
+      body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 25,
+            Padding(
+              padding: const EdgeInsets.only(left: 18, top: 15, bottom: 15),
+              child: Text(
+                "CERTIFICATE OF REGISTRY",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
             ),
-            DropDown()
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+                color: CS_BodyContainerColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 25,
+                  ),
+                  DropDown(),
+                ],
+              ),
+            ),
           ],
         ),
       ),

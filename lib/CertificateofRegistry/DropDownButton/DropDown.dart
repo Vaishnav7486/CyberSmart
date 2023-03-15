@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../Const/Colors.dart';
+
 class DropDown extends StatefulWidget {
   DropDown({
     super.key,
@@ -11,14 +13,18 @@ class DropDown extends StatefulWidget {
 
 class _DropDownState extends State<DropDown> {
   String? _chosenValue;
-  String? value1;
+
   @override
   Widget build(BuildContext context) {
     return Center(
         child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: (_chosenValue == "NO") ? Color(0XFFFCF3F2) : Color(0xffDDE2E5),
+        color: (_chosenValue == null)
+            ? Color(0xffDDE2E5)
+            : (_chosenValue == 'NO')
+                ? Color(0xffFCF3F2)
+                : Color(0xffF0F9F6),
       ),
       height: 72,
       width: 375,
@@ -27,22 +33,19 @@ class _DropDownState extends State<DropDown> {
           padding: const EdgeInsets.only(top: 10),
           child: Text(
             "Valid",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                color: (_chosenValue == "NO")
-                    ? Color.fromARGB(255, 255, 26, 1)
-                    : Color(0xff5E6366),
+                color: (_chosenValue == null)
+                    ? Color.fromARGB(255, 56, 56, 56)
+                    : (_chosenValue == 'NO')
+                        ? Color.fromARGB(255, 240, 24, 0)
+                        : Color.fromARGB(255, 3, 180, 77),
                 fontSize: 16,
                 fontWeight: FontWeight.w400),
           ),
         ),
         subtitle: DropdownButton<String>(
           value: _chosenValue,
-
-          //elevation: 5,
           style: TextStyle(color: Color(0xff5E6366)),
-
           items: <String>[
             'Please Select',
             'YES',
@@ -55,18 +58,17 @@ class _DropDownState extends State<DropDown> {
           }).toList(),
           hint: Text(
             "Please Select",
-            style: TextStyle(
-                color: Color.fromARGB(255, 0, 2, 3),
-                fontSize: 16,
-                fontWeight: FontWeight.w400),
+            style: CS_Font,
           ),
           onChanged: (String? value) {
             setState(() {
               _chosenValue = value!;
-
-              print(_chosenValue);
             });
           },
+        ),
+        trailing: Icon(
+          Icons.expand_more,
+          size: 35,
         ),
       ),
     ));
