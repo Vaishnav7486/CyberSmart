@@ -37,37 +37,42 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                   borderRadius: BorderRadius.circular(10),
                   color: Color(0xffD9D9D9),
                 ),
-                height: 70,
+                height: 78,
                 width: 360,
                 child: ListTile(
-                    title: Text(
-                      section1[index],
-                      style: TextStyle(
-                          color: CS_TextleColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600),
+                  title: Text(
+                    section1[index],
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        color: CS_TextleColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Text(
+                        "VALID",
+                        style: TextStyle(
+                            color: CS_TextleColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Image.asset("images/loading.png")
+                    ],
+                  ),
+                  trailing: InkWell(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CertificateofRegistryForm(),
+                      ),
                     ),
-                    subtitle: Row(
-                      children: [
-                        Text(
-                          "Valid",
-                          style: TextStyle(
-                              color: CS_TextleColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Image.asset("images/loading.png")
-                      ],
-                    ),
-                    trailing: InkWell(
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CertificateofRegistryForm())),
-                        child: Image.asset("images/Icon.png"))),
+                    child: Image.asset("images/Icon.png"),
+                  ),
+                ),
               );
             }),
       ),

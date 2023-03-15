@@ -45,7 +45,7 @@ class _HomepageState extends State<Homepage> {
           Padding(
             padding: const EdgeInsets.all(18),
             child: Text(
-              "Pre Survay",
+              "PRE SURVAY",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
