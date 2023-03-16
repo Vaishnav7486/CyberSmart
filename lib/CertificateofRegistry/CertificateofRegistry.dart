@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../Const/Colors.dart';
+import 'Add to global/addtoglobal.dart';
+import 'Certificate of Registry form/CertificateofRegistryform.dart';
 import 'DropDownButton/DropDown.dart';
+import 'UploadImage/uploadimage.dart';
 
 class CertificateofRegistryForm extends StatefulWidget {
   const CertificateofRegistryForm({super.key});
@@ -53,6 +56,14 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                     height: 25,
                   ),
                   DropDown(),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Addtoremark(),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Uploadimage(),
                 ],
               ),
             ),

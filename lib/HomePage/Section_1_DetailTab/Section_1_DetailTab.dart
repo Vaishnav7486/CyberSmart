@@ -38,11 +38,11 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                   borderRadius: BorderRadius.circular(10),
                   color: Color(0xffD9D9D9),
                 ),
-                height: 78,
+                height: 68,
                 width: 360,
                 child: ListTile(
                   title: Text(section1[index],
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: CS_Font),
                   subtitle: Row(
@@ -52,9 +52,12 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                         style: CS_Font,
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 8,
                       ),
-                      Image.asset("images/loading.png")
+                      Container(
+                          height: 16,
+                          width: 16,
+                          child: Image.asset("images/loading.png"))
                     ],
                   ),
                   trailing: InkWell(
