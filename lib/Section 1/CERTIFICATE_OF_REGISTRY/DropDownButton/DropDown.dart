@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../Const/Colors.dart';
+import '../../../Const/Colors.dart';
 import '../Certificate of Registry form/CertificateofRegistryform.dart';
 
 class DropDown extends StatefulWidget {
@@ -23,7 +22,7 @@ class _DropDownState extends State<DropDown> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: (_chosenValue == null)
+              color: (_chosenValue == null || _chosenValue == 'Please Select')
                   ? Color(0xffDDE2E5)
                   : (_chosenValue == 'NO')
                       ? Color(0xffFCF3F2)
@@ -37,7 +36,8 @@ class _DropDownState extends State<DropDown> {
                 child: Text(
                   "Valid",
                   style: TextStyle(
-                      color: (_chosenValue == null)
+                      color: (_chosenValue == null ||
+                              _chosenValue == 'Please Select')
                           ? Color.fromARGB(255, 56, 56, 56)
                           : (_chosenValue == 'NO')
                               ? Color.fromARGB(255, 240, 24, 0)

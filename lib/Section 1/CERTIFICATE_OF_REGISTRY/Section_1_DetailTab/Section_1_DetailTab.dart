@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../CertificateofRegistry/CertificateofRegistry.dart';
-import '../../Const/Colors.dart';
+import '../CertificateofRegistry.dart';
+import '../../../Const/Colors.dart';
 
 class Section_1_DetailTab extends StatefulWidget {
   const Section_1_DetailTab({super.key});
@@ -28,8 +28,9 @@ class _Section_TabState extends State<Section_1_DetailTab> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 35),
       child: Container(
-        height: MediaQuery.of(context).size.height * .035,
         child: ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => Divider(),
             itemCount: section1.length,
             itemBuilder: (context, index) {
