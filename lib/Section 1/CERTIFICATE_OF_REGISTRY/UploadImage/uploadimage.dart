@@ -16,6 +16,7 @@ class _UploadimageState extends State<Uploadimage> {
   String selectedImagePath = '';
   final ImagePicker imgpicker = ImagePicker();
   List<XFile>? imagefiles;
+  List<XFile> imagefilesdemo = [];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,11 +31,8 @@ class _UploadimageState extends State<Uploadimage> {
                     backgroundColor: CS_BodyContainerColor,
                     foregroundColor: Color(0xff4AA080)),
                 onPressed: () async {
-                  selectImage();
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const Imagenaming()));
+                  imageselect();
+                  ;
                   setState(() {});
                 },
                 child: Center(
@@ -57,43 +55,39 @@ class _UploadimageState extends State<Uploadimage> {
                 )),
           ),
         ),
-        imagefiles != null
-            ? Wrap(
-                children: imagefiles!.map((imageone) {
-                  return Container(
-                      child: Card(
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      child: Image.file(File(imageone.path)),
-                    ),
-                  ));
-                }).toList(),
-              )
-            : Container(),
-        SizedBox(
-          height: 30,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GridView.count(
+
+        // ? Wrap(
+        //     children: imagefiles!.map((imageone) {
+        //       return Container(
+        //           child: Card(
+        //         child: Container(
+        //           height: 80,
+        //           width: 80,
+        //           child: Image.file(File(imageone.path)),
+        //         ),
+        //       ));
+        //     }).toList(),
+        //   )
+
+        GridView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            children: [
-              Container(
-                height: 50,
-                width: 50,
-                color: Colors.blue,
-              ),
-              Container(
-                height: 50,
-                width: 50,
-                color: Colors.blue,
-              ),
-            ],
-          ),
-        ),
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemCount: imagefilesdemo.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Image.file(File(imagefilesdemo[index].path)),
+                ),
+              );
+            })
       ],
     );
   }
@@ -199,6 +193,16 @@ class _UploadimageState extends State<Uploadimage> {
             ),
           );
         });
+  }
+
+  void imageselect() async {
+    final XFile? selectedImage =
+        await imgpicker.pickImage(source: ImageSource.gallery);
+    if (selectedImage!.path.isNotEmpty) {
+      imagefilesdemo.add(selectedImage);
+    }
+    setState() {}
+    ;
   }
 
   openImages() async {

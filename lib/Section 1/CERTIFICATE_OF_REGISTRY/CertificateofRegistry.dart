@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-
 import '../../Const/Colors.dart';
 import 'Add to global/addtoglobal.dart';
-import 'Certificate of Registry form/CertificateofRegistryform.dart';
 import 'DropDownButton/DropDown.dart';
 import 'UploadImage/uploadimage.dart';
 
 class CertificateofRegistryForm extends StatefulWidget {
   const CertificateofRegistryForm({super.key});
-
   @override
   State<CertificateofRegistryForm> createState() =>
       _CertificateofRegistryFormState();
@@ -18,18 +15,11 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
   @override
   Widget build(BuildContext context) {
     Future<bool> showExitPopup() async {
+      //show confirm dialogue ===============================================================================================================
       return await showDialog(
-            //show confirm dialogue
             //the return value will be from "Yes" or "No" options
             context: context,
-            builder: (context) =>
-                //  Container(
-                //       height: 200,
-                //       width: 200,
-                //       color: Colors.amber,
-                //     )
-
-                Padding(
+            builder: (context) => Padding(
               padding: const EdgeInsets.all(25),
               child: AlertDialog(
                 title: Container(
@@ -85,6 +75,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
           false; //if showDialouge had returned null, then return false
     }
 
+//Here Start the Certificate of regisry form ====================================================================================================================================
     return WillPopScope(
         onWillPop: showExitPopup, //call function on back button press
         child: Scaffold(
@@ -132,19 +123,23 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                         SizedBox(
                           height: 25,
                         ),
+                        //Here calling the YES or NO drop Down Button ====================================================================================================================================
                         DropDown(),
                         SizedBox(
                           height: 25,
                         ),
+//Here calling  remark ====================================================================================================================================
                         Addtoremark(),
                         SizedBox(
                           height: 40,
                         ),
+//Here calling the Upload Screen ====================================================================================================================================
                         Uploadimage(),
                       ],
                     ),
                   ),
                 ),
+//Here calling the save Button ====================================================================================================================================
                 Container(
                   color: CS_BodyContainerColor,
                   child: Expanded(
