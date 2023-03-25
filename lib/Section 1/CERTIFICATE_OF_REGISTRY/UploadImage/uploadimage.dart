@@ -16,78 +16,155 @@ class _UploadimageState extends State<Uploadimage> {
   String selectedImagePath = '';
   final ImagePicker imgpicker = ImagePicker();
   List<XFile>? imagefiles;
-  List<XFile> imagefilesdemo = [];
+  List imagefilesdemo = [
+    0,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(
-          child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            height: 44,
-            width: 180,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: CS_BodyContainerColor,
-                    foregroundColor: Color(0xff4AA080)),
-                onPressed: () async {
-                  imageselect();
-                  ;
-                  setState(() {});
-                },
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.file_upload_outlined,
-                        size: 30,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Upload",
-                        style: TextStyle(fontSize: 18),
-                      )
-                    ],
-                  ),
-                )),
-          ),
-        ),
-
-        // ? Wrap(
-        //     children: imagefiles!.map((imageone) {
-        //       return Container(
-        //           child: Card(
-        //         child: Container(
-        //           height: 80,
-        //           width: 80,
-        //           child: Image.file(File(imageone.path)),
-        //         ),
-        //       ));
-        //     }).toList(),
-        //   )
-
-        GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemCount: imagefilesdemo.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
+        (imagefilesdemo.length == 1)
+            ? Center(
                 child: Container(
-                  height: 150,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Image.file(File(imagefilesdemo[index].path)),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  height: 44,
+                  width: 180,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: CS_BodyContainerColor,
+                          foregroundColor: Color(0xff4AA080)),
+                      onPressed: () async {
+                        imageselect();
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.file_upload_outlined,
+                              size: 30,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Upload",
+                              style: TextStyle(fontSize: 18),
+                            )
+                          ],
+                        ),
+                      )),
                 ),
-              );
-            })
+              )
+            : Container(),
+        SizedBox(
+          height: 20,
+        ),
+        (imagefilesdemo.length == 1)
+            ? Container()
+            : GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemCount: imagefilesdemo.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return (index == 0)
+                      ? GestureDetector(
+                          onTap: () async {
+                            imageselect();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Container(
+                              height: 150,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black.withOpacity(.5)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Center(
+                                    child: Icon(Icons.file_upload_outlined,
+                                        size: 40),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("UPLOAD")
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Container(
+                            height: 150,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black.withOpacity(.5)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 130,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: FileImage(
+                                              File(imagefilesdemo[index].path),
+                                            ),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 5,
+                                      top: 5,
+                                      child: Container(
+                                          height: 30,
+                                          width: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.red,
+                                          ),
+                                          child: Icon(
+                                            Icons.delete_outline_rounded,
+                                            color: Colors.white,
+                                          )),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(),
+                                    Text(
+                                      "DECK A",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Image.asset("images/Icon.png"),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                }),
       ],
     );
   }
@@ -198,11 +275,12 @@ class _UploadimageState extends State<Uploadimage> {
   void imageselect() async {
     final XFile? selectedImage =
         await imgpicker.pickImage(source: ImageSource.gallery);
+
     if (selectedImage!.path.isNotEmpty) {
       imagefilesdemo.add(selectedImage);
     }
-    setState() {}
-    ;
+
+    setState(() {});
   }
 
   openImages() async {

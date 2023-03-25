@@ -4,6 +4,10 @@ import '../Const/Colors.dart';
 import '../Section 3/section3screen.dart';
 import '../Section 4/section4screen.dart';
 import '../Section 5/section5screen.dart';
+import '../Section 6/section6screen.dart';
+import '../Section 7/section7screen.dart';
+import '../Section 8/section8screen.dart';
+import '../Section 9/section9screen.dart';
 import '../Section 1/CERTIFICATE_OF_REGISTRY/Section_1_DetailTab/Section_1_DetailTab.dart';
 
 class Homepage extends StatefulWidget {
@@ -38,9 +42,12 @@ class _HomepageState extends State<Homepage> {
   List data = [
     Section_1_DetailTab(),
     Section2(),
-    Section3(),
+    Section_3(),
     Section4(),
     Section5(),
+    Section7(),
+    Section8(),
+    Section9(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -70,7 +77,7 @@ class _HomepageState extends State<Homepage> {
                 Padding(
                   padding: const EdgeInsets.all(18),
                   child: Text(
-                    "PRE SURVAY",
+                    "PRE SURVEY",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

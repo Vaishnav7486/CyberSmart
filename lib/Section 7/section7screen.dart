@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Section_3 extends StatefulWidget {
-  const Section_3({super.key});
+class Section3 extends StatefulWidget {
+  const Section3({super.key});
 
   @override
-  State<Section_3> createState() => _Section_3State();
+  State<Section3> createState() => _Section3State();
 }
 
-class _Section_3State extends State<Section_3> {
+class _Section3State extends State<Section3> {
   @override
   Widget build(BuildContext context) {
     return Padding(

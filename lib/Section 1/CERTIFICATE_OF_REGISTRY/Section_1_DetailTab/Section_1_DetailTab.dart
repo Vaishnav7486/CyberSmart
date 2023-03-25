@@ -49,7 +49,7 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                   subtitle: Row(
                     children: [
                       Text(
-                        "VALID",
+                        "INCOMPLETE",
                         style: CS_Font,
                       ),
                       SizedBox(
@@ -58,7 +58,7 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                       Container(
                           height: 16,
                           width: 16,
-                          child: Image.asset("images/loading.png"))
+                          child: Image.asset("images/close cross.png"))
                     ],
                   ),
                   trailing: InkWell(

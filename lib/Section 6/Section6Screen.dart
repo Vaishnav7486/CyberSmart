@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Section_3 extends StatefulWidget {
-  const Section_3({super.key});
+class Section7 extends StatefulWidget {
+  const Section7({super.key});
 
   @override
-  State<Section_3> createState() => _Section_3State();
+  State<Section7> createState() => _Section7State();
 }
 
-class _Section_3State extends State<Section_3> {
+class _Section7State extends State<Section7> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,7 +15,7 @@ class _Section_3State extends State<Section_3> {
       child: Container(
         child: Center(
           child: Text(
-            "Section 3",
+            "Section 2",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
         ),
