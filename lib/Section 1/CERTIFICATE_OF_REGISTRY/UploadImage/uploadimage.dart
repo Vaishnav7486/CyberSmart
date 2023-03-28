@@ -15,7 +15,7 @@ class Uploadimage extends StatefulWidget {
 class _UploadimageState extends State<Uploadimage> {
   String selectedImagePath = '';
   final ImagePicker imgpicker = ImagePicker();
-  List<XFile>? imagefiles;
+  // List<XFile>? imagefiles;
   List imagefilesdemo = [
     0,
   ];
@@ -36,7 +36,7 @@ class _UploadimageState extends State<Uploadimage> {
                           backgroundColor: CS_BodyContainerColor,
                           foregroundColor: Color(0xff4AA080)),
                       onPressed: () async {
-                        imageselect();
+                        selectImage();
                       },
                       child: Center(
                         child: Row(
@@ -74,7 +74,7 @@ class _UploadimageState extends State<Uploadimage> {
                   return (index == 0)
                       ? GestureDetector(
                           onTap: () async {
-                            imageselect();
+                            selectImage();
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(15),
@@ -150,13 +150,18 @@ class _UploadimageState extends State<Uploadimage> {
                                   children: [
                                     Container(),
                                     Text(
-                                      "DECK A",
+                                      "image Name",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Image.asset("images/Icon.png"),
+                                    InkWell(
+                                      onTap: () {
+                                        _asyncInputDialog(context);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Image.asset("images/Icon.png"),
+                                      ),
                                     )
                                   ],
                                 )
@@ -169,6 +174,7 @@ class _UploadimageState extends State<Uploadimage> {
     );
   }
 
+// image selection =========================================================================================================================================================
   Future selectImage() {
     return showDialog(
         context: context,
@@ -193,39 +199,38 @@ class _UploadimageState extends State<Uploadimage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            selectedImagePath = await openImages();
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  selectedImagePath = await imageselect();
 
-                            if (selectedImagePath != '') {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const Imagenaming()));
-                              setState(() {});
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text("No Image Selected !"),
-                              ));
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Image.asset(
+                                  if (selectedImagePath != '') {
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                        "No Image Captured !",
+                                        style: CS_Font,
+                                      ),
+                                    ));
+                                  }
+                                },
+                                child: Image.asset(
                                   'images/2.png',
                                   height: 50,
                                   width: 50,
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text('Gallery'),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text('Gallery'),
+                            ],
                           ),
                         ),
                         GestureDetector(
@@ -272,39 +277,82 @@ class _UploadimageState extends State<Uploadimage> {
         });
   }
 
-  void imageselect() async {
-    final XFile? selectedImage =
-        await imgpicker.pickImage(source: ImageSource.gallery);
+//take name from user =======================================================================================================================================================
+  Future _asyncInputDialog(BuildContext context) async {
+    String teamName = '';
+    return showDialog(
+      context: context,
+      barrierDismissible:
+          false, // dialog is dismissible with a tap on the barrier
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Column(
+            children: [
+              Container(
+                  height: 60,
+                  width: 60,
+                  child: Image.asset(
+                    "images/Question.png",
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              Text('Do you want to Change the name?'),
+            ],
+          ),
+          content: new Row(
+            children: [
+              new Expanded(
+                  child: new TextField(
+                decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff279B1D), width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff465245), width: 2.0),
+                  ),
+                  hintText: 'Enter your name here',
+                ),
+                onChanged: (value) {
+                  teamName = value;
+                },
+              ))
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff4AA080),
+                  foregroundColor: CS_BodyContainerColor),
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop(teamName);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-    if (selectedImage!.path.isNotEmpty) {
-      imagefilesdemo.add(selectedImage);
+// Image Selection gallery ============================================================================================================================================================
+  imageselect() async {
+    final List<XFile>? selectedImage = await imgpicker.pickMultiImage();
+
+    if (selectedImage!.isNotEmpty) {
+      imagefilesdemo.addAll(selectedImage);
     }
 
     setState(() {});
   }
 
-  openImages() async {
-    try {
-      var pickedfiles = await imgpicker.pickMultiImage();
-      //you can use ImageCourse.camera for Camera capture
-      if (pickedfiles != null) {
-        imagefiles = pickedfiles;
-        Navigator.pop(context);
-
-        setState(() {});
-      } else {
-        print("No image is selected.");
-      }
-    } catch (e) {
-      print("error while picking file.");
-    }
-  }
-
   selectImageFromCamera() async {
-    XFile? pickedfiles = await ImagePicker()
+    XFile? selectedImage = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 10);
-    if (pickedfiles != null) {
-      return pickedfiles.path;
+    if (selectedImage != null) {
+      return selectedImage.path;
     } else {
       return '';
     }

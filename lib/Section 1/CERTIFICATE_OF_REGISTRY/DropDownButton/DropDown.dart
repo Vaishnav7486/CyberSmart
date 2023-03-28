@@ -47,7 +47,17 @@ class _DropDownState extends State<DropDown> {
                 ),
               ),
               subtitle: DropdownButton<String>(
-                icon: SizedBox(),
+                icon: Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .52,
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      size: 35,
+                    ),
+                  ],
+                ),
                 underline: SizedBox(),
                 value: _chosenValue,
                 style: TextStyle(color: Color(0xff5E6366)),
@@ -70,10 +80,6 @@ class _DropDownState extends State<DropDown> {
                     _chosenValue = value!;
                   });
                 },
-              ),
-              trailing: Icon(
-                Icons.expand_more,
-                size: 35,
               ),
             ),
           ),

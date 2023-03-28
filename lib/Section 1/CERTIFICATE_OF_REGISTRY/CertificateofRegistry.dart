@@ -156,7 +156,9 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xff4AA080),
                               foregroundColor: CS_BodyContainerColor),
-                          onPressed: () {},
+                          onPressed: () {
+                            showExitPopup();
+                          },
                           child: Center(
                             child: Text(
                               "Save",

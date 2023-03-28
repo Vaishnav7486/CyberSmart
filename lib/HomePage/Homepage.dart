@@ -90,7 +90,7 @@ class _HomepageState extends State<Homepage> {
               height: 16,
             ),
 
-            /// CUSTOM TABBAR
+            /// CUSTOM TABBAR ================================================================================================================================
             SizedBox(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * .035,
@@ -138,7 +138,7 @@ class _HomepageState extends State<Homepage> {
               height: 30,
             ),
 
-            /// MAIN BODY
+            /// MAIN BODY ================================================================================================================================
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
