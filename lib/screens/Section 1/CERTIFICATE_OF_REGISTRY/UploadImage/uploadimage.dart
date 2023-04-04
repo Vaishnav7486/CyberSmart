@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cybersmart/Const/Colors.dart';
 import 'package:flutter/material.dart';
 
@@ -115,17 +113,18 @@ class _UploadimageState extends State<Uploadimage> {
                               children: [
                                 Stack(
                                   children: [
-                                    Container(
-                                      height: 130,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: FileImage(
-                                              File(imagefilesdemo[index].path),
-                                            ),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    ),
+                                    ///uncomment this - change made here
+                                    // Container(
+                                    //   height: 130,
+                                    //   decoration: BoxDecoration(
+                                    //     borderRadius: BorderRadius.circular(10),
+                                    //     image: DecorationImage(
+                                    //         image: FileImage(
+                                    //           File(imagefilesdemo[index].path),
+                                    //         ),
+                                    //         fit: BoxFit.cover),
+                                    //   ),
+                                    // ),
                                     Positioned(
                                       right: 5,
                                       top: 5,
@@ -143,6 +142,7 @@ class _UploadimageState extends State<Uploadimage> {
                                           )),
                                     )
                                   ],
+                        
                                 ),
                                 Row(
                                   mainAxisAlignment:

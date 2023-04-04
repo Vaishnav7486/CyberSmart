@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../Const/Colors.dart';
+import '../../../../Const/Colors.dart';
 
 class Certificateofregistry extends StatefulWidget {
   const Certificateofregistry({super.key});

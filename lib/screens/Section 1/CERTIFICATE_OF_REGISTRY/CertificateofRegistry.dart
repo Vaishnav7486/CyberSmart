@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Const/Colors.dart';
+import '../../../Const/Colors.dart';
 import 'Add to global/addtoglobal.dart';
 import 'DropDownButton/DropDown.dart';
 import 'UploadImage/uploadimage.dart';
@@ -15,7 +15,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
   @override
   Widget build(BuildContext context) {
     Future<bool> showExitPopup() async {
-      //show confirm dialogue ===============================================================================================================
+      //show confirm dialogue =============================================================================================================
       return await showDialog(
             //the return value will be from "Yes" or "No" options
             context: context,
@@ -39,7 +39,9 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pop(true);
+                          // Navigator.of(context).pop(true);
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         },
                         child: Center(
                           child: Container(
@@ -53,7 +55,9 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pop(false);
+                          // Navigator.of(context).pop(false);
+                          Navigator.of(context).pop();
+                          // Navigator.of(context).pop();
                         },
                         child: Container(
                           height: 50,
@@ -75,7 +79,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
           false; //if showDialouge had returned null, then return false
     }
 
-//Here Start the Certificate of regisry form ====================================================================================================================================
+//Here Start the Certificate of regisry form =============================================================================================================
     return WillPopScope(
         onWillPop: showExitPopup, //call function on back button press
         child: Scaffold(
@@ -123,8 +127,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                         SizedBox(
                           height: 25,
                         ),
-//Here calling the YES or NO drop Down Button ====================================================================================================================================
-                        DropDown(),
+//Here calling the YES or NO drop Down Button =============================================================================================================
                         SizedBox(
                           height: 25,
                         ),

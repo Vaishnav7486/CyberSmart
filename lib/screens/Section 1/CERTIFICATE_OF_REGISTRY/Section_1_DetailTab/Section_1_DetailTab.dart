@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../CertificateofRegistry.dart';
-import '../../../Const/Colors.dart';
+import '../../../../Const/Colors.dart';
 
 class Section_1_DetailTab extends StatefulWidget {
   const Section_1_DetailTab({super.key});

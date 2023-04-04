@@ -1,14 +1,14 @@
-import 'package:cybersmart/Section%202/Section2Screen.dart';
+import 'package:cybersmart/screens/Section%202/Section2Screen.dart';
 import 'package:flutter/material.dart';
 import '../Const/Colors.dart';
-import '../Section 3/section3screen.dart';
-import '../Section 4/section4screen.dart';
-import '../Section 5/section5screen.dart';
+import '../screens/Section 3/section3screen.dart';
+import '../screens/Section 4/section4screen.dart';
+import '../screens/Section 5/section5screen.dart';
 import '../Section 6/section6screen.dart';
-import '../Section 7/section7screen.dart';
-import '../Section 8/section8screen.dart';
-import '../Section 9/section9screen.dart';
-import '../Section 1/CERTIFICATE_OF_REGISTRY/Section_1_DetailTab/Section_1_DetailTab.dart';
+import '../screens/Section 7/section7screen.dart';
+import '../screens/Section 8/section8screen.dart';
+import '../screens/Section 9/section9screen.dart';
+import '../screens/Section 1/CERTIFICATE_OF_REGISTRY/Section_1_DetailTab/Section_1_DetailTab.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -57,7 +57,9 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: CS_BackgroundColor,
         elevation: 0,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(Icons.arrow_back, color: CS_TextleColor)),
         actions: [
           IconButton(
