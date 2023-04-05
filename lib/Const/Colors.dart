@@ -11,3 +11,4 @@ var CS_BodyContainerColor = Color(0xffFFFFFF);
 // Font
 
 var CS_Font = GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.w500);
+

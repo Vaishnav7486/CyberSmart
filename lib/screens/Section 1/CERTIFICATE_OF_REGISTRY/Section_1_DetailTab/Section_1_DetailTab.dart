@@ -1,3 +1,4 @@
+import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/Add%20to%20global/addtoglobal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -64,7 +65,8 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                   trailing: InkWell(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => CertificateofRegistryForm(),
+                        // builder: (context) => CertificateofRegistryForm(),
+                        builder: (context) => CORSampleForm1(),
                       ),
                     ),
                     child: Image.asset("images/Icon.png"),
@@ -72,6 +74,97 @@ class _Section_TabState extends State<Section_1_DetailTab> {
                 ),
               );
             }),
+      ),
+    );
+  }
+}
+
+///certificate of registary sample form
+
+class CORSampleForm1 extends StatefulWidget {
+  const CORSampleForm1({super.key});
+
+  @override
+  State<CORSampleForm1> createState() => _CORSampleForm1State();
+}
+
+class _CORSampleForm1State extends State<CORSampleForm1> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        // foregroundColor: Colors.black,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            AddtoremarkN(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class AddtoremarkN extends StatefulWidget {
+  const AddtoremarkN({super.key});
+
+  @override
+  State<AddtoremarkN> createState() => _AddtoremarkNState();
+}
+
+class _AddtoremarkNState extends State<AddtoremarkN> {
+  @override
+  void initState() {
+    value = false;
+    super.initState();
+  }
+
+  bool value = true;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 22),
+      child: Row(
+        children: [
+          InkWell(
+            onTap: () {
+              setState(() {
+                value = !value;
+              });
+            },
+            child: Container(
+              height: 24,
+              width: 24,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Color(0xffF0F9F6),
+                border: Border.all(
+                  color: Color.fromARGB(255, 219, 216, 216),
+                ),
+              ),
+              child: Icon(
+                Icons.done_rounded,
+                color: (value == null)
+                    ? Color.fromARGB(255, 175, 78, 76)
+                    : (value == true)
+                        ? Colors.green
+                        : Color(0xffF0F9F6),
+                size: 18,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text("Add to global remark", style: TextStyle(color: Colors.white))
+        ],
       ),
     );
   }

@@ -1,17 +1,20 @@
 import 'package:cybersmart/screens/Section%202/Section2Screen.dart';
+import 'package:cybersmart/screens/Section%206/Section6Screen.dart';
 import 'package:flutter/material.dart';
 import '../Const/Colors.dart';
 import '../screens/Section 3/section3screen.dart';
 import '../screens/Section 4/section4screen.dart';
 import '../screens/Section 5/section5screen.dart';
-import '../Section 6/section6screen.dart';
-import '../screens/Section 7/section7screen.dart';
-import '../screens/Section 8/section8screen.dart';
-import '../screens/Section 9/section9screen.dart';
+import '../screens/Section 6/section6screen.dart';
+// import 'lib/screens/Section 7/section7screen.dart';
+// import '../screens/Section 8/section8screen.dart';
+// import '../screens/Section 9/section9screen.dart';
 import '../screens/Section 1/CERTIFICATE_OF_REGISTRY/Section_1_DetailTab/Section_1_DetailTab.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  Homepage({super.key, required this.projectID});
+
+  String projectID;
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -45,9 +48,9 @@ class _HomepageState extends State<Homepage> {
     Section_3(),
     Section4(),
     Section5(),
-    Section7(),
-    Section8(),
-    Section9(),
+    // Section6(),
+    // Section8(),
+    // Section9(),
   ];
   @override
   Widget build(BuildContext context) {
