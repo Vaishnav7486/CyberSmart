@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBFunctions {
@@ -44,8 +47,8 @@ class DBFunctions {
   }
 
   static Future<String> addProjectToDatabaseSampl() async {
-    String projectID = "9lishnnv";
-    String projectName = "9lishnnv";
+    String projectID = "c0vn17t9";
+    String projectName = "sample project";
     try {
       await DBFunctions._db.rawInsert("""
 INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
@@ -79,256 +82,157 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
   }
 
   static Future pushSampleDataToSection1() async {
-    String project_id = "9lishnnv";
+    String project_id = "c0vn17t9";
     String section1SampleDataString = """{
-    "project_id": "9lishnnv",
+    "project_id": "c0vn17t9",
     "check_id": "",
     "presurvey_info": [
         {
             "registry_requirements": [
                 {
-                    "id": "1",
                     "details": {
                         "no": "1",
-                        "name": "Certificate of Registry",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": [
-                            {
-                                "id": "",
-                                "details": {
-                                    "Remark": "",
-                                    "SectionId": "",
-                                    "PointId": ""
-                                }
-                            }
-                        ],
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "Yes",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "Certificate of Registry",
+                        "remarks": "from web app"
+                    },
+                    "id": "1"
                 },
                 {
-                    "id": "2",
                     "details": {
                         "no": "2",
-                        "name": "Articles of Agreement",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": true,
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "Yes",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "Articles of Agreement (valid 1 yr)",
+                        "remarks": "from web app"
+                    },
+                    "id": "2"
                 },
                 {
-                    "id": "3",
                     "details": {
                         "no": "3",
-                        "name": "Minimum Safe Manning Certificate",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": true,
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "NO",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "Minimum Safe Manning Certificate",
+                        "remarks": "from web app"
+                    },
+                    "id": "3"
                 },
                 {
-                    "id": "4",
                     "details": {
                         "no": "4",
-                        "name": "Radio Station License",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": false,
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "NO",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "Radio Station License",
+                        "remarks": "from web app"
+                    },
+                    "id": "4"
                 },
                 {
-                    "id": "5",
                     "details": {
                         "no": "5",
-                        "name": "Maltese Ships Official Log Book",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": false,
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "NO",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "Maltese Ships Official Log Book with regular inspection entries for drills/accomodation/LSA/FFE",
+                        "remarks": "from web app"
+                    },
+                    "id": "5"
                 },
                 {
-                    "id": "6",
                     "details": {
                         "no": "6",
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "last_notice": "",
+                        "next_survey_date": "null",
+                        "globalAttachments": false,
+                        "last_survey_date": "null",
+                        "valid": "Yes",
+                        "globalRemarks": false,
+                        "issue_date": "null",
                         "name": "MS Notices File",
-                        "last_notice": "168/22",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": true,
-                        "globalAttachments": true,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "remarks": "from web app"
+                    },
+                    "id": "6"
                 },
                 {
-                    "id": "7",
                     "details": {
                         "no": "7",
-                        "name": "Technical Notes",
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
+                        "globalAttachments": false,
+                        "last_survey_date": "null",
                         "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
                         "globalRemarks": false,
-                        "globalAttachments": true,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "issue_date": "null",
+                        "name": "Technical Notices",
+                        "remarks": "from web app"
+                    },
+                    "id": "7"
                 },
                 {
-                    "id": "8",
                     "details": {
                         "no": "8",
-                        "name": "Merchant Shipping Act (Cap.234)",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": true,
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "Yes",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "Merchant Shipping Act (Cap.234)",
+                        "remarks": "from web app"
+                    },
+                    "id": "8"
                 },
                 {
-                    "id": "9",
                     "details": {
                         "no": "9",
-                        "name": "MS Act Subsidiary Legislation",
-                        "valid": "",
-                        "issue_date": "",
-                        "expiry_date": "",
-                        "last_survey_date": "",
-                        "next_survey_date": "",
-                        "remarks": "",
-                        "globalRemarks": true,
+                        "attachments": [],
+                        "expiry_date": "null",
+                        "next_survey_date": "null",
                         "globalAttachments": false,
-                        "attachments": [
-                            {
-                                "id": "1",
-                                "details": {
-                                    "filename": "Nameoffile.extension",
-                                    "filetype": "",
-                                    "RemarkofFile": "",
-                                    "globalAttachments": ""
-                                }
-                            }
-                        ]
-                    }
+                        "last_survey_date": "null",
+                        "valid": "Yes",
+                        "globalRemarks": false,
+                        "issue_date": "null",
+                        "name": "MS Act Subsidiary Legislation",
+                        "remarks": "from web app"
+                    },
+                    "id": "9"
                 }
             ]
         }
@@ -344,4 +248,82 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
       print("EXCEPTION CAUGHT WHILE UPDATING VALUE AS $e");
     }
   }
+
+//  Future <Section1Modelsample1>
+  static Future<Section1Modelsample1> returnsection1instance(
+      String projectID) async {
+    var section1DataFromDB;
+    late String section1InstancesString;
+    late Section1Modelsample1 instanceOfSection1DataFromDB;
+    try {
+      section1DataFromDB = await DBFunctions._db.rawQuery(
+          "SELECT section_1 from projects WHERE project_id = ?", [projectID]);
+      // print(section1DataFromDB);
+      // mark 7 - remove this print statement
+      section1InstancesString = section1DataFromDB[0]["section_1"] as String;
+      // mark 8 - remove this print statement
+      print(section1InstancesString);
+    } catch (e) {
+      print("EC - WHILE PRINTING DATA OF SECTION 1 AS $e");
+    }
+    try {
+      instanceOfSection1DataFromDB =
+          section1Modelsample1FromJson(section1InstancesString);
+      // print(instanceOfSection1DataFromDB);
+      return instanceOfSection1DataFromDB;
+    } catch (e) {
+      print("EC - WHILE RETURNING  as $e");
+      throw e;
+    }
+  }
+
+  static late String section1jsonStringToStoreInDatabase;
+  static Future<String> saveAndUpdateInstanceOfSection1ToDatabase(
+      Section1Modelsample1 section1instance) async {
+    String project_id = "c0vn17t9";
+    print("this is the instance to store in the section1\n$section1instance");
+    section1jsonStringToStoreInDatabase = jsonEncode(section1instance);
+    try {
+      print(
+          "this is the string passed to save\n$section1jsonStringToStoreInDatabase");
+      await DBFunctions._db.rawUpdate(
+          "UPDATE projects SET section_1 = ? where project_id = ?",
+          // [mapOfSection1Data, project_id]);
+          [section1jsonStringToStoreInDatabase, project_id]);
+      return "success";
+    } catch (e) {
+      return "failed";
+    }
+
+    ///
+    ///
+  }
+
+  static Future<Section1Modelsample1> returnSection1Object() async {
+    var tempt_secction1DataFromDB;
+    late String temp_section1InstancesString;
+    late Section1Modelsample1 temp_instanceOfSection1DataFromDB;
+    try {
+      tempt_secction1DataFromDB = await DBFunctions._db.rawQuery(
+          "SELECT section_1 from projects WHERE project_id = ?", ["c0vn17t9"]);
+      temp_section1InstancesString =
+          tempt_secction1DataFromDB[0]["section_1"] as String;
+      // print("printing the temporary instance \n $temp_section1InstancesString");
+    } catch (e) {
+      print("EC - WHILE PRINTING DATA OF SECTION 1 AS $e");
+      throw (e);
+    }
+    try {
+      temp_instanceOfSection1DataFromDB =
+          section1Modelsample1FromJson(temp_section1InstancesString);
+      return temp_instanceOfSection1DataFromDB;
+    } catch (e) {
+      print("EC - WHILE RETURNING section 1 instance as $e");
+      throw (e);
+    }
+  }
 }
+
+// class Section1GlobalInstance =
+
+

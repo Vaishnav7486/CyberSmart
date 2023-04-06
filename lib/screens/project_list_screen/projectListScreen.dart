@@ -1,5 +1,6 @@
 import 'package:cybersmart/HomePage/Homepage.dart';
 import 'package:cybersmart/helper/database_functions.dart';
+import 'package:cybersmart/services/api_operations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -11,6 +12,7 @@ class ProjectListScreen extends StatefulWidget {
 }
 
 class _ProjectListScreenState extends State<ProjectListScreen> {
+  String contentsOsSection1 = "";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,7 +31,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => Homepage(
-                              projectID: "9lishnnv",
+                              projectID: "c0vn17t9",
                             )));
               },
               child: Container(
@@ -49,7 +51,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Project Id : 9lishnnv",
+                      "Project Id : c0vn17t9",
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(height: 10),
@@ -77,18 +79,18 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             //         Fluttertoast.showToast(msg: "Failed to add project");
             //       }
             //     },
-            //     child: Text("create new project with id 9lishnnv")),
+            //     child: Text("create new project with id c0vn17t9")),
 
             ///
             ///
             ///print all contents of database
             ///
             ///
-            // ElevatedButton(
-            //     onPressed: () {
-            //       DBFunctions.printAllContentsofDatabase();
-            //     },
-            //     child: Text("print contents of database")),
+            ElevatedButton(
+                onPressed: () {
+                  DBFunctions.printAllContentsofDatabase();
+                },
+                child: Text("print contents of database")),
 
             ///
             ///
@@ -99,9 +101,9 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             ///
             // ElevatedButton(
             //     onPressed: () {
-            //     ///  DBFunctions.deleteAllcontentsFromDatabase();
+            //       /// DBFunctions.deleteAllcontentsFromDatabase();
             //     },
-            //     child: Text("delete all data from database"))
+            //     child: Text("delete all data from database")),
 
             ///
             ///
@@ -110,7 +112,45 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             //     onPressed: () {
             //       DBFunctions.pushSampleDataToSection1();
             //     },
-            //     child: Text("set sample data to section 1"))
+            //     child: Text("set sample data to section 1")),
+
+            ///
+            ///
+            ///
+            ///print contents of section1 where id = c0vn17t9
+            ///
+            ///
+            ///
+            ElevatedButton(
+                onPressed: () {
+                  DBFunctions.returnsection1instance('c0vn17t9');
+                },
+                child: Text("print section 1 data")),
+
+            ///
+            ///
+            ///
+            ///
+            ElevatedButton(
+                onPressed: () async {
+                  String? _updateResponse =
+                      await ApiOperations.postSection1contents();
+                  if (_updateResponse == "success") {
+                    Fluttertoast.showToast(msg: "updated to cloud");
+                  } else {
+                    Fluttertoast.showToast(msg: "failed to update");
+                  }
+                },
+                child: Text("sync")),
+
+            ///
+            ///
+            ///
+            ///
+            // ElevatedButton(onPressed: () async {}, child: Text("sync")),
+            // ,
+
+            Text(contentsOsSection1),
           ],
         ),
       ),
