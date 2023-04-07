@@ -581,7 +581,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                                   });
                                           if (pickedDate != null) {
                                             String formattedDate =
-                                                DateFormat("dd/MM/yyyy")
+                                                DateFormat("dd-MM-yyyy")
                                                     .format(pickedDate);
                                             setState(() {
                                               // mark 5 - issue date selection
@@ -745,7 +745,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                                   });
                                           if (pickedDate != null) {
                                             String formattedDate =
-                                                DateFormat("dd/MM/yyyy")
+                                                DateFormat("dd-MM-yyyy")
                                                     .format(pickedDate);
                                             setState(() {
                                               // mark 6 - expiry date selection
