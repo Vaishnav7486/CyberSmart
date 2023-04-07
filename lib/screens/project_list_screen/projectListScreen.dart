@@ -86,11 +86,11 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             ///print all contents of database
             ///
             ///
-            ElevatedButton(
-                onPressed: () {
-                  DBFunctions.printAllContentsofDatabase();
-                },
-                child: Text("print contents of database")),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       DBFunctions.printAllContentsofDatabase();
+            //     },
+            //     child: Text("print contents of database")),
 
             ///
             ///
@@ -121,11 +121,11 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             ///
             ///
             ///
-            ElevatedButton(
-                onPressed: () {
-                  DBFunctions.returnsection1instance('c0vn17t9');
-                },
-                child: Text("print section 1 data")),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       DBFunctions.returnsection1instance('c0vn17t9');
+            //     },
+            //     child: Text("print section 1 data")),
 
             ///
             ///

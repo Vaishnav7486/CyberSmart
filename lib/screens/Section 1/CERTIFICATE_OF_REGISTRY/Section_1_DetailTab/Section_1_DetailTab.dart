@@ -1006,17 +1006,17 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                         ),
 //Here calling the Upload Screen ==================================================================================================================================================================================
                         // Uploadimage(),
-                        Container(
-                          height: 40,
-                          width: 45,
-                          color: Colors.yellow,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                print(section1ModelInstance.presurveyInfo[0]
-                                    .registryRequirements[2].details.name);
-                              },
-                              child: Text("press this")),
-                        )
+                        // Container(
+                        //   height: 40,
+                        //   width: 45,
+                        //   color: Colors.yellow,
+                        //   child: ElevatedButton(
+                        //       onPressed: () {
+                        //         print(section1ModelInstance.presurveyInfo[0]
+                        //             .registryRequirements[2].details.name);
+                        //       },
+                        //       child: Text("press this")),
+                        // )
                       ],
                     ),
                   ),
