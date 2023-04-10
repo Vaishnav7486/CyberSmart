@@ -29,61 +29,159 @@ class _Section_TabState extends State<Section_1_DetailTab> {
     "MERCHANT SHIPPING ACT (CAP.234)",
     "MS ACT SUBSIDIARY LEGISLATION",
   ];
+  late Section1Modelsample1 _section1ModelInstance;
+  late Section1Modelsample1 _section1ModelInstanceHelper;
+
+  @override
+  void initState() {
+    super.initState();
+    initStateFunction();
+  }
+
+  initStateFunction() async {
+    _section1ModelInstanceHelper = await setValueToSection1InstanceforUI();
+
+    setState(() {
+      _section1ModelInstance = _section1ModelInstanceHelper;
+      print("printing the initial state setting in the home page screen");
+      print(_section1ModelInstance);
+    });
+  }
+
+  Future<Section1Modelsample1> setValueToSection1InstanceforUI() async {
+    Section1Modelsample1 _sampelvalue =
+        await DBFunctions.returnsection1instance(widget.projectID);
+    return _sampelvalue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 35),
       child: Container(
-        child: ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) => Divider(),
-            itemCount: section1.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xffD9D9D9),
-                ),
-                height: 68,
-                width: 360,
-                child: ListTile(
-                  title: Text(section1[index],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: CS_Font),
-                  subtitle: Row(
-                    children: [
-                      Text(
-                        "INCOMPLETE",
-                        style: CS_Font,
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                print(_section1ModelInstance
+                    .presurveyInfo[0].registryRequirements[0].details.name);
+              },
+              child: Container(
+                height: 60,
+                width: 120,
+                color: Colors.green,
+              ),
+            ),
+            ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) => Divider(),
+                itemCount: section1.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xffD9D9D9),
+                    ),
+                    height: 68,
+                    width: 360,
+                    child: ListTile(
+                      title: Text(section1[index],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: CS_Font),
+                      subtitle: Row(
+                        children: [
+                          Text(
+                            completeOrIncompleteStatusCheckingBasedOnFormName(
+                                index),
+                            style: CS_Font,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                              height: 16,
+                              width: 16,
+                              child: returnIconAfterCheckingConditaion(index))
+                        ],
                       ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Container(
-                          height: 16,
-                          width: 16,
-                          child: Image.asset("images/close cross.png"))
-                    ],
-                  ),
-                  trailing: InkWell(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        // builder: (context) => CertificateofRegistryForm(),
-                        builder: (context) => CertificateofRegistryForm(
-                          projectID: widget.projectID,
-                          selectedForm: section1[index],
+                      trailing: InkWell(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            // builder: (context) => CertificateofRegistryForm(),
+                            builder: (context) => CertificateofRegistryForm(
+                              projectID: widget.projectID,
+                              selectedForm: section1[index],
+                            ),
+                          ),
                         ),
+                        child: Image.asset("images/Icon.png"),
                       ),
                     ),
-                    child: Image.asset("images/Icon.png"),
-                  ),
-                ),
-              );
-            }),
+                  );
+                }),
+          ],
+        ),
       ),
     );
+  }
+
+  returnIconAfterCheckingConditaion(index) {
+    switch (completeOrIncompleteStatusCheckingBasedOnFormName(index)) {
+      case "COMPLETED":
+        return Icon(Icons.check, size: 17);
+      case "INCOMPLETE":
+        return Icon(Icons.cancel, size: 17);
+      case "TO BE COMPLETED":
+        return Icon(Icons.timer, size: 17);
+    }
+  }
+
+//  String
+  completeOrIncompleteStatusCheckingBasedOnFormName(index) {
+    switch (section1[index]) {
+      case "CERTIFICATE OF REGISTRY":
+        return statusCheckingOfFormCompletionStatus(
+            "CERTIFICATE OF REGISTRY", 0);
+      case "ARTICLES OF AGREEMENT (VALID 1 YR)":
+        return statusCheckingOfFormCompletionStatus(
+            "ARTICLES OF AGREEMENT (VALID 1 YR)", 1);
+      case "MINIMUM SAFE MANNING CERTIFICATE":
+        return statusCheckingOfFormCompletionStatus(
+            "MINIMUM SAFE MANNING CERTIFICATE", 2);
+      case "RADIO STATION LICENSE":
+        return statusCheckingOfFormCompletionStatus("RADIO STATION LICENSE", 3);
+      case "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE":
+        return statusCheckingOfFormCompletionStatus(
+            "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE",
+            4);
+      case "MS NOTICES FILE":
+        return statusCheckingOfFormCompletionStatus("MS NOTICES FILE", 5);
+      case "TECHNICAL NOTES":
+        return statusCheckingOfFormCompletionStatus("TECHNICAL NOTES", 6);
+      case "MERCHANT SHIPPING ACT (CAP.234)":
+        return statusCheckingOfFormCompletionStatus(
+            "MERCHANT SHIPPING ACT (CAP.234)", 7);
+      case "MS ACT SUBSIDIARY LEGISLATION":
+        return statusCheckingOfFormCompletionStatus(
+            "MS ACT SUBSIDIARY LEGISLATION", 8);
+    }
+    // default:
+    return "sherri aavum da";
+    // break;
+  }
+
+  statusCheckingOfFormCompletionStatus(String statusof, int index) {
+    switch (_section1ModelInstance
+        .presurveyInfo[0].registryRequirements[index].details.completed) {
+      case "yes":
+        return "COMPLETED";
+      case "no":
+        return "INCOMPLETE";
+      default:
+        return "TO BE COMPLETED";
+    }
   }
 }
 
@@ -111,110 +209,121 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
   @override
   void initState() {
     super.initState();
-    expiryDateController.text = "";
-    issuedateController.text = "";
+    // i have removed this - what is the convequence ?
+    // expiryDateController.text = "";
+    // issuedateController.text = "";
     value = false;
     assignvalueFromDBtosection1instance();
     print("this is the selected form ${widget.selectedForm}");
   }
 
   assignvalueFromDBtosection1instance() async {
-    section1ModelInstance_helper = await setValueToSection1InstanceforUI();
-    setState(() {
-      section1ModelInstance = section1ModelInstance_helper;
+    try {
+      section1ModelInstance_helper = await setValueToSection1InstanceforUI();
+      setState(() {
+        section1ModelInstance =  section1ModelInstance_helper;
 
-      switch (widget.selectedForm) {
-        case "CERTIFICATE OF REGISTRY":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[0].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[0].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[0].details.expiryDate;
+        switch (widget.selectedForm) {
+          case "CERTIFICATE OF REGISTRY":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[0].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[0].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[0].details.expiryDate;
 
-          break;
-        case "ARTICLES OF AGREEMENT (VALID 1 YR)":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[1].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[1].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[1].details.expiryDate;
+            break;
+          case "ARTICLES OF AGREEMENT (VALID 1 YR)":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[1].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[1].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[1].details.expiryDate;
 
-          break;
-        case "MINIMUM SAFE MANNING CERTIFICATE":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[2].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[2].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[2].details.expiryDate;
+            break;
+          case "MINIMUM SAFE MANNING CERTIFICATE":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[2].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[2].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[2].details.expiryDate;
 
-          break;
-        case "RADIO STATION LICENSE":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[3].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[3].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[3].details.expiryDate;
+            break;
+          case "RADIO STATION LICENSE":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[3].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[3].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[3].details.expiryDate;
 
-          break;
-        case "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[4].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[4].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[4].details.expiryDate;
+            break;
+          case "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[4].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[4].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[4].details.expiryDate;
 
-          break;
-        case "MS NOTICES FILE":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[5].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[5].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[5].details.expiryDate;
+            break;
+          case "MS NOTICES FILE":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[5].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[5].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[5].details.expiryDate;
 
-          break;
-        case "TECHNICAL NOTES":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[6].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[6].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[6].details.expiryDate;
+            break;
+          case "TECHNICAL NOTES":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[6].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[6].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[6].details.expiryDate;
 
-          break;
-        case "MERCHANT SHIPPING ACT (CAP.234)":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[7].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[7].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[7].details.expiryDate;
+            break;
+          case "MERCHANT SHIPPING ACT (CAP.234)":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[7].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[7].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[7].details.expiryDate;
 
-          break;
-        case "MS ACT SUBSIDIARY LEGISLATION":
-          remark_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[8].details.remarks;
-          issue_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[8].details.issueDate;
-          expiry_date_value = section1ModelInstance
-              .presurveyInfo[0].registryRequirements[8].details.expiryDate;
+            break;
+          case "MS ACT SUBSIDIARY LEGISLATION":
+            remark_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[8].details.remarks;
+            issue_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[8].details.issueDate;
+            expiry_date_value = section1ModelInstance
+                .presurveyInfo[0].registryRequirements[8].details.expiryDate;
 
-          break;
+            break;
 
-        default:
-      }
-    });
+          default:
+        }
+      });
+    } catch (e) {
+      print("EC while assigning values to remark and related variables as $e");
+      throw e;
+    }
   }
 
-  setValueToSection1InstanceforUI() async {
-    Section1Modelsample1 _sampelvalue =
-        await DBFunctions.returnsection1instance(widget.projectID);
-    return _sampelvalue;
+  Future<Section1Modelsample1> setValueToSection1InstanceforUI() async {
+    try {
+      Section1Modelsample1 _sampelvalue =
+          await DBFunctions.returnsection1instance(widget.projectID);
+      return _sampelvalue;
+    } catch (e) {
+      print("EC while assigning section 1 instance as $e");
+      throw e;
+    }
   }
 
   late Section1Modelsample1 section1ModelInstance;

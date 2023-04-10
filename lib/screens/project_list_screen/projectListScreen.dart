@@ -1,5 +1,6 @@
 import 'package:cybersmart/HomePage/Homepage.dart';
 import 'package:cybersmart/helper/database_functions.dart';
+import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
 import 'package:cybersmart/services/api_operations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,7 +13,13 @@ class ProjectListScreen extends StatefulWidget {
 }
 
 class _ProjectListScreenState extends State<ProjectListScreen> {
+
   String contentsOsSection1 = "";
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,10 +34,10 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             SizedBox(height: 10),
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Homepage(
+                        builder: (BuildContext context) => Homepage(
                               projectID: "c0vn17t9",
                             )));
               },
@@ -66,9 +73,9 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             SizedBox(height: 20),
 
             ///
-            ///add projec to database
-            ///
-            ///
+            // /add projec to database
+            // /
+            // /
             // ElevatedButton(
             //     onPressed: () async {
             //       String isSuccess =
@@ -81,55 +88,55 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             //     },
             //     child: Text("create new project with id c0vn17t9")),
 
-            ///
-            ///
-            ///print all contents of database
-            ///
-            ///
+            // /
+            // /
+            // /print all contents of database
+            // /
+            // /
             // ElevatedButton(
             //     onPressed: () {
             //       DBFunctions.printAllContentsofDatabase();
             //     },
             //     child: Text("print contents of database")),
 
-            ///
-            ///
-            ///
-            ///delete all contenets from database
-            ///
-            ///
-            ///
+            // /
+            // /
+            // /
+            // /delete all contenets from database
+            // /
+            // /
+            // /
             // ElevatedButton(
             //     onPressed: () {
-            //       /// DBFunctions.deleteAllcontentsFromDatabase();
+            //       ///DBFunctions.deleteAllcontentsFromDatabase();
             //     },
             //     child: Text("delete all data from database")),
 
-            ///
-            ///
-            ///
+            // /
+            // /
+            // /
             // ElevatedButton(
             //     onPressed: () {
             //       DBFunctions.pushSampleDataToSection1();
             //     },
             //     child: Text("set sample data to section 1")),
 
-            ///
-            ///
-            ///
-            ///print contents of section1 where id = c0vn17t9
-            ///
-            ///
-            ///
-            // ElevatedButton(
-            //     onPressed: () {
-            //       DBFunctions.returnsection1instance('c0vn17t9');
-            //     },
-            //     child: Text("print section 1 data")),
+            // /
+            // /
+            // /
+            // /print contents of section1 where id = c0vn17t9
+            // /
+            // /
+            // /
+            ElevatedButton(
+                onPressed: () {
+                  DBFunctions.returnsection1instance('c0vn17t9');
+                },
+                child: Text("print section 1 data")),
 
-            ///
-            ///
-            ///
+            // /
+            // /
+            // /
             ///
             ElevatedButton(
                 onPressed: () async {

@@ -1,15 +1,13 @@
+import 'package:cybersmart/helper/database_functions.dart';
+import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
 import 'package:cybersmart/screens/Section%202/Section2Screen.dart';
-import 'package:cybersmart/screens/Section%206/Section6Screen.dart';
 import 'package:flutter/material.dart';
 import '../Const/Colors.dart';
 import '../screens/Section 3/section3screen.dart';
 import '../screens/Section 4/section4screen.dart';
 import '../screens/Section 5/section5screen.dart';
-import '../screens/Section 6/section6screen.dart';
-// import 'lib/screens/Section 7/section7screen.dart';
-// import '../screens/Section 8/section8screen.dart';
-// import '../screens/Section 9/section9screen.dart';
 import '../screens/Section 1/CERTIFICATE_OF_REGISTRY/Section_1_DetailTab/Section_1_DetailTab.dart';
+import 'package:cybersmart/screens/project_list_screen/projectListScreen.dart';
 
 class Homepage extends StatefulWidget {
   Homepage({super.key, required this.projectID});
@@ -53,6 +51,9 @@ class _HomepageState extends State<Homepage> {
     // Section8(),
     // Section9(),
   ];
+
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +63,10 @@ class _HomepageState extends State<Homepage> {
         elevation: 0,
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => ProjectListScreen()));
             },
             icon: Icon(Icons.arrow_back, color: CS_TextleColor)),
         actions: [

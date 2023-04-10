@@ -254,114 +254,124 @@
 // To parse this JSON data, do
 //
 //     final section1Modelsample1 = section1Modelsample1FromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final section1Modelsampe1 = section1Modelsampe1FromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final section1Modelsample1 = section1Modelsample1FromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final section1Modelsample1 = section1Modelsample1FromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final section1Modelsample1 = section1Modelsample1FromJson(jsonString);
+
+
+// To parse this JSON data, do
+//
+//     final section1Modelsample1 = section1Modelsample1FromJson(jsonString);
 
 import 'dart:convert';
 
-Section1Modelsample1 section1Modelsample1FromJson(String str) =>
-    Section1Modelsample1.fromJson(json.decode(str));
+Section1Modelsample1 section1Modelsample1FromJson(String str) => Section1Modelsample1.fromJson(json.decode(str));
 
-String section1Modelsample1ToJson(Section1Modelsample1 data) =>
-    json.encode(data.toJson());
+String section1Modelsample1ToJson(Section1Modelsample1 data) => json.encode(data.toJson());
 
 class Section1Modelsample1 {
-  Section1Modelsample1({
-    required this.projectId,
-    required this.checkId,
-    required this.presurveyInfo,
-  });
+    Section1Modelsample1({
+        required this.projectId,
+        required this.checkId,
+        required this.presurveyInfo,
+    });
 
-  String projectId;
-  String checkId;
-  List<PresurveyInfo> presurveyInfo;
+    String projectId;
+    String checkId;
+    List<PresurveyInfo> presurveyInfo;
 
-  factory Section1Modelsample1.fromJson(Map<String, dynamic> json) =>
-      Section1Modelsample1(
+    factory Section1Modelsample1.fromJson(Map<String, dynamic> json) => Section1Modelsample1(
         projectId: json["project_id"],
         checkId: json["check_id"],
-        presurveyInfo: List<PresurveyInfo>.from(
-            json["presurvey_info"].map((x) => PresurveyInfo.fromJson(x))),
-      );
+        presurveyInfo: List<PresurveyInfo>.from(json["presurvey_info"].map((x) => PresurveyInfo.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "project_id": projectId,
         "check_id": checkId,
-        "presurvey_info":
-            List<dynamic>.from(presurveyInfo.map((x) => x.toJson())),
-      };
+        "presurvey_info": List<dynamic>.from(presurveyInfo.map((x) => x.toJson())),
+    };
 }
 
 class PresurveyInfo {
-  PresurveyInfo({
-    required this.registryRequirements,
-  });
+    PresurveyInfo({
+        required this.registryRequirements,
+    });
 
-  List<RegistryRequirement> registryRequirements;
+    List<RegistryRequirement> registryRequirements;
 
-  factory PresurveyInfo.fromJson(Map<String, dynamic> json) => PresurveyInfo(
-        registryRequirements: List<RegistryRequirement>.from(
-            json["registry_requirements"]
-                .map((x) => RegistryRequirement.fromJson(x))),
-      );
+    factory PresurveyInfo.fromJson(Map<String, dynamic> json) => PresurveyInfo(
+        registryRequirements: List<RegistryRequirement>.from(json["registry_requirements"].map((x) => RegistryRequirement.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
-        "registry_requirements":
-            List<dynamic>.from(registryRequirements.map((x) => x.toJson())),
-      };
+    Map<String, dynamic> toJson() => {
+        "registry_requirements": List<dynamic>.from(registryRequirements.map((x) => x.toJson())),
+    };
 }
 
 class RegistryRequirement {
-  RegistryRequirement({
-    required this.details,
-    required this.id,
-  });
+    RegistryRequirement({
+        required this.details,
+        required this.id,
+    });
 
-  Details details;
-  String id;
+    RegistryRequirementDetails details;
+    String id;
 
-  factory RegistryRequirement.fromJson(Map<String, dynamic> json) =>
-      RegistryRequirement(
-        details: Details.fromJson(json["details"]),
+    factory RegistryRequirement.fromJson(Map<String, dynamic> json) => RegistryRequirement(
+        details: RegistryRequirementDetails.fromJson(json["details"]),
         id: json["id"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "details": details.toJson(),
         "id": id,
-      };
+    };
 }
 
-class Details {
-  Details({
-    required this.no,
-    required this.attachments,
-    required this.expiryDate,
-    required this.nextSurveyDate,
-    required this.globalAttachments,
-    required this.lastSurveyDate,
-    required this.valid,
-    required this.globalRemarks,
-    required this.issueDate,
-    required this.name,
-    required this.remarks,
-    this.lastNotice,
-  });
+class RegistryRequirementDetails {
+    RegistryRequirementDetails({
+        required this.no,
+        required this.attachments,
+        required this.expiryDate,
+        required this.nextSurveyDate,
+        required this.globalAttachments,
+        required this.lastSurveyDate,
+        required this.valid,
+        required this.globalRemarks,
+        required this.issueDate,
+        required this.completed,
+        required this.name,
+        required this.remarks,
+        this.lastNotice,
+    });
 
-  String no;
-  List<dynamic> attachments;
-  String expiryDate;
-  String nextSurveyDate;
-  bool globalAttachments;
-  String lastSurveyDate;
-  String? valid;
-  bool globalRemarks;
-  String issueDate;
-  String name;
-  String remarks;
-  String? lastNotice;
+    String no;
+    List<Attachment> attachments;
+    String expiryDate;
+    String nextSurveyDate;
+    bool globalAttachments;
+    String lastSurveyDate;
+    String? valid;
+    bool globalRemarks;
+    String issueDate;
+    String completed;
+    String name;
+    String remarks;
+    String? lastNotice;
 
-  factory Details.fromJson(Map<String, dynamic> json) => Details(
+    factory RegistryRequirementDetails.fromJson(Map<String, dynamic> json) => RegistryRequirementDetails(
         no: json["no"],
-        attachments: List<dynamic>.from(json["attachments"].map((x) => x)),
+        attachments: List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
         expiryDate: json["expiry_date"],
         nextSurveyDate: json["next_survey_date"],
         globalAttachments: json["globalAttachments"],
@@ -369,14 +379,15 @@ class Details {
         valid: json["valid"],
         globalRemarks: json["globalRemarks"],
         issueDate: json["issue_date"],
+        completed: json["completed"],
         name: json["name"],
         remarks: json["remarks"],
         lastNotice: json["last_notice"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "no": no,
-        "attachments": List<dynamic>.from(attachments.map((x) => x)),
+        "attachments": List<dynamic>.from(attachments.map((x) => x.toJson())),
         "expiry_date": expiryDate,
         "next_survey_date": nextSurveyDate,
         "globalAttachments": globalAttachments,
@@ -384,8 +395,69 @@ class Details {
         "valid": valid,
         "globalRemarks": globalRemarks,
         "issue_date": issueDate,
+        "completed": completed,
         "name": name,
         "remarks": remarks,
         "last_notice": lastNotice,
-      };
+    };
+}
+
+class Attachment {
+    Attachment({
+        required this.details,
+        required this.id,
+    });
+
+    AttachmentDetails details;
+    int id;
+
+    factory Attachment.fromJson(Map<String, dynamic> json) => Attachment(
+        details: AttachmentDetails.fromJson(json["details"]),
+        id: json["id"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "details": details.toJson(),
+        "id": id,
+    };
+}
+
+class AttachmentDetails {
+    AttachmentDetails({
+        required this.filename,
+        required this.filetype,
+        required this.globalAttachments,
+        required this.name,
+        required this.pointId,
+        required this.remarkofFile,
+        required this.sectionId,
+    });
+
+    String filename;
+    String filetype;
+    bool globalAttachments;
+    String name;
+    String pointId;
+    String remarkofFile;
+    String sectionId;
+
+    factory AttachmentDetails.fromJson(Map<String, dynamic> json) => AttachmentDetails(
+        filename: json["filename"],
+        filetype: json["filetype"],
+        globalAttachments: json["globalAttachments"],
+        name: json["name"],
+        pointId: json["PointId"],
+        remarkofFile: json["RemarkofFile"],
+        sectionId: json["SectionId"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "filename": filename,
+        "filetype": filetype,
+        "globalAttachments": globalAttachments,
+        "name": name,
+        "PointId": pointId,
+        "RemarkofFile": remarkofFile,
+        "SectionId": sectionId,
+    };
 }

@@ -92,7 +92,32 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                 {
                     "details": {
                         "no": "1",
-                        "attachments": [],
+                        "attachments": [
+                            {
+                                "details": {
+                                    "filename": "7173-CAPE_DANCER_SA4482.jpg",
+                                    "filetype": "image/jpeg",
+                                    "globalAttachments": true,
+                                    "name": "tedst",
+                                    "PointId": "1",
+                                    "RemarkofFile": "ksksks",
+                                    "SectionId": "1"
+                                },
+                                "id": 1
+                            },
+                            {
+                                "id" : 2,
+                                "details": {
+                                    "filename": "7173-CAPE_DANCER_SA4482.jpg",
+                                    "filetype": "image/jpeg",
+                                    "globalAttachments": true,
+                                    "name": "tedst",
+                                    "PointId": "1",
+                                    "RemarkofFile": "ksksks",
+                                    "SectionId": "1"
+                                }
+                            }
+                        ],
                         "expiry_date": "null",
                         "next_survey_date": "null",
                         "globalAttachments": false,
@@ -100,6 +125,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "valid": "Yes",
                         "globalRemarks": false,
                         "issue_date": "null",
+                        "completed": "yes",
                         "name": "Certificate of Registry",
                         "remarks": "from web app"
                     },
@@ -116,6 +142,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "valid": "Yes",
                         "globalRemarks": false,
                         "issue_date": "null",
+                        "completed": "yes",
                         "name": "Articles of Agreement (valid 1 yr)",
                         "remarks": "from web app"
                     },
@@ -131,6 +158,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "last_survey_date": "null",
                         "valid": "NO",
                         "globalRemarks": false,
+                        "completed": "yes",
                         "issue_date": "null",
                         "name": "Minimum Safe Manning Certificate",
                         "remarks": "from web app"
@@ -145,6 +173,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "next_survey_date": "null",
                         "globalAttachments": false,
                         "last_survey_date": "null",
+                        "completed": "yes",
                         "valid": "NO",
                         "globalRemarks": false,
                         "issue_date": "null",
@@ -162,6 +191,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "globalAttachments": false,
                         "last_survey_date": "null",
                         "valid": "NO",
+                        "completed": "yes",
                         "globalRemarks": false,
                         "issue_date": "null",
                         "name": "Maltese Ships Official Log Book with regular inspection entries for drills/accomodation/LSA/FFE",
@@ -179,6 +209,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "globalAttachments": false,
                         "last_survey_date": "null",
                         "valid": "Yes",
+                        "completed": "yes",
                         "globalRemarks": false,
                         "issue_date": "null",
                         "name": "MS Notices File",
@@ -195,6 +226,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "globalAttachments": false,
                         "last_survey_date": "null",
                         "valid": "",
+                        "completed": "yes",
                         "globalRemarks": false,
                         "issue_date": "null",
                         "name": "Technical Notices",
@@ -213,6 +245,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "valid": "Yes",
                         "globalRemarks": false,
                         "issue_date": "null",
+                        "completed": "yes",
                         "name": "Merchant Shipping Act (Cap.234)",
                         "remarks": "from web app"
                     },
@@ -229,6 +262,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                         "valid": "Yes",
                         "globalRemarks": false,
                         "issue_date": "null",
+                        "completed": "yes",
                         "name": "MS Act Subsidiary Legislation",
                         "remarks": "from web app"
                     },
@@ -262,7 +296,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
       // mark 7 - remove this print statement
       section1InstancesString = section1DataFromDB[0]["section_1"] as String;
       // mark 8 - remove this print statement
-      print(section1InstancesString);
+      // print(section1InstancesString);
     } catch (e) {
       print("EC - WHILE PRINTING DATA OF SECTION 1 AS $e");
     }
