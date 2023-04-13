@@ -282,16 +282,33 @@ class _UploadImageClassState extends State<UploadImageClass> {
             child: Text("prinnt count")),
         ElevatedButton(
             onPressed: () {
+              // print(imagesList);
+              // print(imagesList[1]["imageBase64"]);
               insertImageData(imagesList);
               print("button pressed");
-              // print(imagesList);
             },
             child: Text("Add images to database")),
         ElevatedButton(
             onPressed: () {
               printImageData();
             },
-            child: Text("Print contents of ")),
+            child: Text("Print contents of image database ")),
+        ElevatedButton(
+            onPressed: () {
+              clearImageData();
+            },
+            child: Text("delete all images from database ")),
+        ElevatedButton(
+            onPressed: () {
+              // ImageUploadFunctions.uploadImageData();
+              ImageUploadFunctions.uploadAsampleImagetoDatabase();
+            },
+            child: Text("Upload image data to cloud ")),
+        ElevatedButton(
+            onPressed: () {
+              printAllData();
+            },
+            child: Text("Print all data from database in json")),
         GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -332,99 +349,7 @@ class _UploadImageClassState extends State<UploadImageClass> {
           },
         ),
         SizedBox(height: 40),
-        Text("from here come all the other new things"),
-        SizedBox(height: 20),
-        ImageListWidget(),
-        SizedBox(height: 40),
       ],
-    );
-  }
-}
-
-class ImageListWidget extends StatefulWidget {
-  const ImageListWidget({Key? key}) : super(key: key);
-
-  @override
-  _ImageListWidgetState createState() => _ImageListWidgetState();
-}
-
-class _ImageListWidgetState extends State<ImageListWidget> {
-  List<Map<String, dynamic>> imageDataList = [];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-            onPressed: () {
-              displayImages();
-            },
-            child: Text("press this")),
-        // ListView.builder(
-        //   physics: NeverScrollableScrollPhysics(),
-        //   shrinkWrap: true,
-        //   itemCount: imageDataList.length,
-        //   itemBuilder: (BuildContext context, int index) {
-        //     final imageData = imageDataList[index];
-        //     return FutureBuilder<Widget>(
-        //       future: _decodeImage(imageData['imageBase64']),
-        //       builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-        //         if (snapshot.hasData) {
-        //           return Column(
-        //             children: [
-        //               snapshot.data!,
-        //               Text(imageData['imageName']),
-        //             ],
-        //           );
-        //         } else if (snapshot.hasError) {
-        //           return Text('Error decoding image');
-        //         } else {
-        //           return const CircularProgressIndicator();
-        //         }
-        //       },
-        //     );
-        //   },
-        // ),
-        imageDataList == null
-            ? CircularProgressIndicator()
-            : imageDataList.isEmpty
-                ? Center(child: Text('No images found.'))
-                : ListView.builder(
-                    itemCount: imageDataList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text(imageDataList[index]['imageName']),
-                        leading: Image.memory(
-                          base64Decode(imageDataList[index]['imageBase64']),
-                        ),
-                      );
-                    },
-                  )
-      ],
-    );
-  }
-
-  Future<void> displayImages() async {
-    // Open the database
-    final database = await openDatabase(
-      join(await getDatabasesPath(), 'image_data.db'),
-      version: 1,
-    );
-
-    // Query the database and update the state with the results
-    final newImageDataList = await database.query('image_data');
-    setState(() {
-      imageDataList = newImageDataList;
-    });
-  }
-
-  Future<Widget> _decodeImage(String base64String) async {
-    final bytes = base64.decode(base64String);
-    final compressedBytes = await FlutterImageCompress.compressWithList(bytes);
-    return Image.memory(
-      compressedBytes,
-      height: 200,
-      fit: BoxFit.cover,
     );
   }
 }

@@ -1,6 +1,7 @@
 // import 'dart:convert';
 // import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 // class DBFunctions {
@@ -132,7 +133,7 @@ Future<void> insertImageData(List<Map<String, dynamic>> imageDataList) async {
       await database.insert(
         'image_data',
         {
-          'imageBase64': imageData['imageBase64Data'],
+          'imageBase64': imageData['imageBase6445'],
           'imageName': imageData['imageName'],
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
@@ -163,29 +164,148 @@ Future<void> printImageData() async {
   }
 }
 
+Future<void> clearImageData() async {
+  final Database database = await openDatabase(
+    join(await getDatabasesPath(), 'image_data.db'),
+    version: 1,
+  ); // Assuming you have a function named "getDatabase()" that returns a Sqflite database instance.
+
+  await database.delete(
+      'image_data'); // This will delete all rows from the "image_data" table.
+}
+
 class ImageUploadFunctions {
   static String baseUrl =
       "https://e75s884i3d.execute-api.eu-west-1.amazonaws.com/dev/putsignedurl-surveyattachments/";
 
   static String imagename = "sdsdssxsd_sampleimage.jpg";
 
-  uploadImagesLoopFunction(int numberOfImages, String imageName) async {
-    late PurLasAsresponseJson purlresponseInstant;
-    late String purlResponseMessage;
+  // uploadImagesLoopFunction(int numberOfImages, String imageName) async {
+  //   late PurLasAsresponseJson purlresponseInstant;
+  //   late String purlResponseMessage;
 
+  //   try {
+  //     var url = Uri.parse(baseUrl + imageName);
+  //     final response = await http.get(url);
+  //     purlresponseInstant =
+  //         PurLasAsresponseJson.fromRawJson(response.body as String);
+  //     print("printing the instant");
+  //     print(purlresponseInstant);
+  //     purlResponseMessage = purlresponseInstant.psurl;
+  //     print("Priting the purl response message");
+  //     print(purlResponseMessage);
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
+
+  ///
+  ///
+  ///
+  ///
+  ///
+  /// v4  this is the best version yet produced
+
+  static Future<void> uploadImageData() async {
     try {
-      var url = Uri.parse(baseUrl + imageName);
-      final response = await http.get(url);
-      purlresponseInstant =
-          PurLasAsresponseJson.fromRawJson(response.body as String);
-      print("printing the instant");
-      print(purlresponseInstant);
-      purlResponseMessage = purlresponseInstant.psurl;
-      print("Priting the purl response message");
+      final database = await openDatabase(
+        join(await getDatabasesPath(), 'image_data.db'),
+        version: 1,
+      );
+
+      final imageDataList = await database.query('image_data');
+
+      for (final imageData in imageDataList) {
+        print("loop started");
+        final String imageName = imageData['imageName'] as String;
+        print(imageName);
+        final String imageBase64Data = imageData['imageBase64'] as String;
+        print("this is the image data" + imageBase64Data);
+        // Convert the base64 data to bytes
+        final imageBytes = base64.decode(imageBase64Data);
+
+        // Get the signed URL from the API
+        final baseUrl =
+            "https://e75s884i3d.execute-api.eu-west-1.amazonaws.com/dev/putsignedurl-surveyattachments/";
+        final url = Uri.parse(baseUrl + imageName);
+        final response = await http.get(url);
+        final purlresponseInstant =
+            PurLasAsresponseJson.fromRawJson(response.body);
+        final purlResponseMessage = purlresponseInstant.psurl;
+
+        // Upload the image bytes to the signed URL
+        final cloudUrl = Uri.parse(purlResponseMessage);
+        // final cloudResponse = await http.post(cloudUrl, body: imageBytes);
+        print(" this is the presigned URL" + purlResponseMessage);
+        print("this is the cloud url in which we post the bytesalong " +
+            cloudUrl.toString());
+
+        print("Image '$imageName' uploaded with status code ");
+        // ${cloudResponse.statusCode}");
+      }
     } catch (e) {
+      print("EC - error caught - 456254");
       throw e;
     }
   }
+
+  static Future<void> uploadAsampleImagetoDatabase() async {
+    try {
+      final database = await openDatabase(
+        join(await getDatabasesPath(), 'image_data.db'),
+        version: 1,
+      );
+
+      final imageDataList = await database.query('image_data');
+
+      final String imageName = imageDataList[0]['imageName'] as String;
+      print(imageName);
+      // final String imageBase64Data = imageDataList[0]['imageBase64'] as String;
+      // print("this is the image data" + imageBase64Data);
+      // Convert the base64 data to bytes
+      // final imageBytes = base64.decode(imageBase64Data);
+      final imageBytes = "base64.decode(imageBase64Data)";
+
+      // Get the signed URL from the API
+      final baseUrl =
+          "https://e75s884i3d.execute-api.eu-west-1.amazonaws.com/dev/putsignedurl-surveyattachments/";
+      final url = Uri.parse(baseUrl + imageName);
+      final response = await http.get(url);
+      final purlresponseInstant =
+          PurLasAsresponseJson.fromRawJson(response.body);
+      final purlResponseMessage = purlresponseInstant.psurl;
+
+      // Upload the image bytes to the signed URL
+      final cloudUrl = Uri.parse(purlResponseMessage);
+      final cloudResponse = await http.post(cloudUrl, body: imageBytes);
+      print(" this is the presigned URL" + purlResponseMessage);
+      print("this is the cloud url in which we post the bytesalong " +
+          cloudUrl.toString());
+
+      print(
+          "Image '$imageName' uploaded with status code  ${cloudResponse.statusCode}");
+    } catch (e) {
+      print("EC - error caught - 456254");
+      throw e;
+    }
+  }
+}
+
+Future<void> printAllData() async {
+  // Open the database
+  final db = await openDatabase('image_data.db');
+
+  // Get all the rows from the database
+  final rows = await db.query('image_data');
+
+  // Convert the rows to a list of maps
+  final list = List<Map<String, dynamic>>.from(rows);
+
+  // Convert the list of maps to JSON
+  final json = jsonEncode(list);
+
+  // Print the JSON to the console
+  print(json);
 }
 
 // To parse this JSON data, do
