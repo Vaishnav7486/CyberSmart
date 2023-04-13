@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cybersmart/Const/Colors.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +79,7 @@ class _UploadimageState extends State<Uploadimage> {
                           child: Padding(
                             padding: const EdgeInsets.all(15),
                             child: Container(
-                              height: 150,
+                              height: 160,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: Colors.black.withOpacity(.5)),
@@ -103,7 +105,7 @@ class _UploadimageState extends State<Uploadimage> {
                       : Padding(
                           padding: const EdgeInsets.all(15),
                           child: Container(
-                            height: 150,
+                            height: 170,
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: Colors.black.withOpacity(.5)),
@@ -114,17 +116,17 @@ class _UploadimageState extends State<Uploadimage> {
                                 Stack(
                                   children: [
                                     ///uncomment this - change made here
-                                    // Container(
-                                    //   height: 130,
-                                    //   decoration: BoxDecoration(
-                                    //     borderRadius: BorderRadius.circular(10),
-                                    //     image: DecorationImage(
-                                    //         image: FileImage(
-                                    //           File(imagefilesdemo[index].path),
-                                    //         ),
-                                    //         fit: BoxFit.cover),
-                                    //   ),
-                                    // ),
+                                    Container(
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: FileImage(
+                                              File(imagefilesdemo[index].path),
+                                            ),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    ),
                                     Positioned(
                                       right: 5,
                                       top: 5,
@@ -142,7 +144,6 @@ class _UploadimageState extends State<Uploadimage> {
                                           )),
                                     )
                                   ],
-                        
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -300,10 +301,10 @@ class _UploadimageState extends State<Uploadimage> {
               Text('Do you want to Change the name?'),
             ],
           ),
-          content: new Row(
+          content: new Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              new Expanded(
-                  child: new TextField(
+              new TextField(
                 decoration: const InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide:
@@ -318,7 +319,24 @@ class _UploadimageState extends State<Uploadimage> {
                 onChanged: (value) {
                   teamName = value;
                 },
-              ))
+              ),
+              SizedBox(height: 20),
+              new TextField(
+                decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff279B1D), width: 2.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xff465245), width: 2.0),
+                  ),
+                  hintText: 'Enter your Remark here',
+                ),
+                onChanged: (value) {
+                  teamName = value;
+                },
+              )
             ],
           ),
           actions: [

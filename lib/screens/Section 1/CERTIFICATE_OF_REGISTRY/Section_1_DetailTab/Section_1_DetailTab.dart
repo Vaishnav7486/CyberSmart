@@ -1,6 +1,8 @@
 import 'package:cybersmart/helper/database_functions.dart';
 import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
 import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/Add%20to%20global/addtoglobal.dart';
+import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/uploadImageClass.dart';
+import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/uploadimage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,17 +63,17 @@ class _Section_TabState extends State<Section_1_DetailTab> {
       child: Container(
         child: Column(
           children: [
-            GestureDetector(
-              onTap: () {
-                print(_section1ModelInstance
-                    .presurveyInfo[0].registryRequirements[0].details.name);
-              },
-              child: Container(
-                height: 60,
-                width: 120,
-                color: Colors.green,
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     print(_section1ModelInstance
+            //         .presurveyInfo[0].registryRequirements[0].details.name);
+            //   },
+            //   child: Container(
+            //     height: 60,
+            //     width: 120,
+            //     color: Colors.green,
+            //   ),
+            // ),
             ListView.separated(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -204,7 +206,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
   String issue_date_value = "";
   String expiry_date_value = "";
   String? valid_value = "";
-  late bool global_remark_value;
+  bool global_remark_value = false;
 
   @override
   void initState() {
@@ -221,7 +223,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
     try {
       section1ModelInstance_helper = await setValueToSection1InstanceforUI();
       setState(() {
-        section1ModelInstance =  section1ModelInstance_helper;
+        section1ModelInstance = section1ModelInstance_helper;
 
         switch (widget.selectedForm) {
           case "CERTIFICATE OF REGISTRY":
@@ -1079,7 +1081,87 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                 onTap: () {
                                   setState(() {
                                     value = !value;
-                                    print(value);
+                                    global_remark_value = value;
+                                    print(global_remark_value);
+                                    switch (widget.selectedForm) {
+                                      case "CERTIFICATE OF REGISTRY":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[0]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+
+                                        break;
+                                      case "ARTICLES OF AGREEMENT (VALID 1 YR)":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[1]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "MINIMUM SAFE MANNING CERTIFICATE":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[2]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "RADIO STATION LICENSE":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[3]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[4]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "MS NOTICES FILE":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[5]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "TECHNICAL NOTES":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[6]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "MERCHANT SHIPPING ACT (CAP.234)":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[7]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      case "MS ACT SUBSIDIARY LEGISLATION":
+                                        section1ModelInstance
+                                                .presurveyInfo[0]
+                                                .registryRequirements[8]
+                                                .details
+                                                .globalRemarks =
+                                            global_remark_value;
+                                        break;
+                                      default:
+                                        print(
+                                            "ERROR WHILE SETTING VALUE TO VALID STATE - XC29");
+                                        break;
+                                    }
                                   });
                                 },
                                 child: Container(
@@ -1126,6 +1208,9 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                         //       },
                         //       child: Text("press this")),
                         // )
+                        UploadImageClass(
+                          selectedForm: widget.selectedForm,
+                        )
                       ],
                     ),
                   ),
@@ -1206,11 +1291,6 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
         break;
     }
   }
-  // section1ModelInstance
-  //                                           .presurveyInfo[0]
-  //                                           .registryRequirements[0]
-  //                                           .details
-  //                                           .valid ??
 
   String? ValidStateHintTextReturningFunction() {
     switch (widget.selectedForm) {
@@ -1383,58 +1463,4 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
         return "this is a default case for expiry date";
     }
   }
-
-  thisIsASampleFunction() {
-    // switch (widget.selectedForm) {
-    //   case "CERTIFICATE OF REGISTRY":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[0].details.remarks = value;
-
-    //     break;
-    //   case "ARTICLES OF AGREEMENT (VALID 1 YR)":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[1].details.remarks = value;
-    //     break;
-    //   case "MINIMUM SAFE MANNING CERTIFICATE":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[2].details.remarks = value;
-    //     break;
-    //   case "RADIO STATION LICENSE":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[3].details.remarks = value;
-    //     break;
-    //   case "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[4].details.remarks = value;
-    //     break;
-    //   case "MS NOTICES FILE":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[5].details.remarks = value;
-    //     break;
-    //   case "TECHNICAL NOTES":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[6].details.remarks = value;
-    //     break;
-    //   case "MERCHANT SHIPPING ACT (CAP.234)":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[7].details.remarks = value;
-    //     break;
-    //   case "MS ACT SUBSIDIARY LEGISLATION":
-    //     section1ModelInstance
-    //         .presurveyInfo[0].registryRequirements[8].details.remarks = value;
-    //     break;
-    //   default:
-    //     print("ERROR WHILE SETTING VALUE TO REMARK - XC29");
-    //     break;
-    // }
-  }
 }
-// "CERTIFICATE OF REGISTRY",
-//     "ARTICLES OF AGREEMENT (VALID 1 YR)",
-//     "MINIMUM SAFE MANNING CERTIFICATE",
-//     "RADIO STATION LICENSE",
-//     "MALTESE SHIPS OFFICIAL LOG BOOK WITH REGULAR INSPECTION ENTRIES FOR DRILLS/ACCOMODATION/LSA/FFE",
-//     "MS NOTICES FILE",
-//     "TECHNICAL NOTES",
-//     "MERCHANT SHIPPING ACT (CAP.234)",
-//     "MS ACT SUBSIDIARY LEGISLATION",

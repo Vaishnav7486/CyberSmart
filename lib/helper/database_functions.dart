@@ -296,7 +296,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
       // mark 7 - remove this print statement
       section1InstancesString = section1DataFromDB[0]["section_1"] as String;
       // mark 8 - remove this print statement
-      // print(section1InstancesString);
+      print(section1InstancesString);
     } catch (e) {
       print("EC - WHILE PRINTING DATA OF SECTION 1 AS $e");
     }

@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final imageClascv = imageClascvFromJson(jsonString);
+//     final imageClassv1 = imageClassv1FromJson(jsonString);
 
 import 'dart:convert';
 
-List<ImageClascv> imageClascvFromJson(String str) => List<ImageClascv>.from(json.decode(str).map((x) => ImageClascv.fromJson(x)));
+ImageClassv1 imageClassv1FromJson(String str) => ImageClassv1.fromJson(json.decode(str));
 
-String imageClascvToJson(List<ImageClascv> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String imageClassv1ToJson(ImageClassv1 data) => json.encode(data.toJson());
 
-class ImageClascv {
-    ImageClascv({
+class ImageClassv1 {
+    ImageClassv1({
         required this.details,
         required this.id,
     });
@@ -17,7 +17,7 @@ class ImageClascv {
     Details details;
     int id;
 
-    factory ImageClascv.fromJson(Map<String, dynamic> json) => ImageClascv(
+    factory ImageClassv1.fromJson(Map<String, dynamic> json) => ImageClassv1(
         details: Details.fromJson(json["details"]),
         id: json["id"],
     );
