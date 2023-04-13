@@ -1,5 +1,7 @@
 // import 'dart:convert';
 // import 'package:sqflite/sqflite.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 // class DBFunctions {
 //   static late Database _dbImages;
@@ -146,7 +148,6 @@ Future<void> insertImageData(List<Map<String, dynamic>> imageDataList) async {
   // Insert each item in the list into the database
 }
 
-
 Future<void> printImageData() async {
   // Open the database
   final database = await openDatabase(
@@ -157,7 +158,58 @@ Future<void> printImageData() async {
   // Query the database and print the results
   final imageDataList = await database.query('image_data');
   for (final imageData in imageDataList) {
-    print('id: ${imageData['id']}, imageBase64: ${imageData['imageBase64']}, imageName: ${imageData['imageName']}');
+    print(
+        'id: ${imageData['id']}, imageBase64: ${imageData['imageBase64']}, imageName: ${imageData['imageName']}');
   }
 }
 
+class ImageUploadFunctions {
+  static String baseUrl =
+      "https://e75s884i3d.execute-api.eu-west-1.amazonaws.com/dev/putsignedurl-surveyattachments/";
+
+  static String imagename = "sdsdssxsd_sampleimage.jpg";
+
+  uploadImagesLoopFunction(int numberOfImages, String imageName) async {
+    late PurLasAsresponseJson purlresponseInstant;
+    late String purlResponseMessage;
+
+    try {
+      var url = Uri.parse(baseUrl + imageName);
+      final response = await http.get(url);
+      purlresponseInstant =
+          PurLasAsresponseJson.fromRawJson(response.body as String);
+      print("printing the instant");
+      print(purlresponseInstant);
+      purlResponseMessage = purlresponseInstant.psurl;
+      print("Priting the purl response message");
+    } catch (e) {
+      throw e;
+    }
+  }
+}
+
+// To parse this JSON data, do
+//
+//     final purLasAsresponseJson = purLasAsresponseJsonFromJson(jsonString);
+
+class PurLasAsresponseJson {
+  PurLasAsresponseJson({
+    required this.psurl,
+  });
+
+  String psurl;
+
+  factory PurLasAsresponseJson.fromRawJson(String str) =>
+      PurLasAsresponseJson.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory PurLasAsresponseJson.fromJson(Map<String, dynamic> json) =>
+      PurLasAsresponseJson(
+        psurl: json["psurl"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "psurl": psurl,
+      };
+}
