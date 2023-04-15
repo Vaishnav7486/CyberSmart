@@ -328,6 +328,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  random_uint8list:
+    dependency: "direct main"
+    description:
+      name: random_uint8list
+      sha256: a0c6b87d1f0d8b88d79130c91f179ba52b7855c2e7617f0e59587bde6f1d5440
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   sky_engine:
     dependency: transitive
     description: flutter

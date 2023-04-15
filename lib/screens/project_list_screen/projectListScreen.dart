@@ -1,6 +1,7 @@
 import 'package:cybersmart/HomePage/Homepage.dart';
 import 'package:cybersmart/helper/database_functions.dart';
 import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
+import 'package:cybersmart/screens/Section%201/xbcx21/sampleImageUploadScreen.dart';
 import 'package:cybersmart/screens/imageselection_screen/image_selection_screen.dart';
 import 'package:cybersmart/services/api_operations.dart';
 import 'package:flutter/material.dart';
@@ -148,6 +149,21 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                 },
                 child: Text("Goto image selection screen")),
 
+            ///
+            ///
+            ///
+            ///
+            SizedBox(height: 40),
+
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SampleImageUploadScreenXB1()));
+                },
+                child: Text("goto Sample image selection screen")),
+            SizedBox(height: 40),
             // /
             // /
             // /

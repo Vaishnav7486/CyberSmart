@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import 'package:cybersmart/helper/imageDatabaseHelper.dart';
@@ -9,216 +10,6 @@ import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-// class UploadImageClass extends StatefulWidget {
-//   UploadImageClass({super.key, required this.selectedForm});
-//   String selectedForm;
-
-//   @override
-//   State<UploadImageClass> createState() => _UploadImageClassState();
-// }
-
-// class _UploadImageClassState extends State<UploadImageClass> {
-//   List<String> _imageList = [];
-
-//   Future<void> _pickImages() async {
-//     List<XFile>? images = await ImagePicker().pickMultiImage();
-//     if (images != null) {
-//       List<String> base64Images = [];
-//       for (XFile image in images) {
-//         final bytes = await image.readAsBytes();
-//         base64Images.add(base64Encode(bytes));
-//       }
-//       setState(() {
-//         _imageList.addAll(base64Images);
-//       });
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         ElevatedButton(
-//             onPressed: () {
-//               _pickImages();
-//             },
-//             child: Text("select image")),
-//         ElevatedButton(onPressed: () {}, child: Text("prinnt count")),
-//         GridView.builder(
-//           physics: NeverScrollableScrollPhysics(),
-//           shrinkWrap: true,
-//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 3,
-//           ),
-//           itemCount: _imageList.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             final imageBytes = base64Decode(_imageList[index]);
-//             return Image.memory(
-//               imageBytes,
-//               fit: BoxFit.cover,
-//             );
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-///
-///
-///
-///
-///
-
-// class ImageInfo {
-//   final int id;
-//   final String filename;
-//   final String filetype;
-//   final bool globalAttachments;
-//   final String name;
-//   final String base64img;
-//   final String pointId;
-//   final String remarkOfFile;
-//   final String sectionId;
-
-//   ImageInfo({
-//     required this.id,
-//     required this.filename,
-//     required this.filetype,
-//     required this.globalAttachments,
-//     required this.name,
-//     required this.base64img,
-//     required this.pointId,
-//     required this.remarkOfFile,
-//     required this.sectionId,
-//   });
-
-//   factory ImageInfo.fromJson(Map<String, dynamic> json) {
-//     return ImageInfo(
-//       id: json['id'],
-//       filename: json['details']['filename'],
-//       filetype: json['details']['filetype'],
-//       globalAttachments: json['details']['globalAttachments'],
-//       name: json['details']['name'],
-//       base64img: json['details']['base64img'],
-//       pointId: json['details']['PointId'],
-//       remarkOfFile: json['details']['RemarkofFile'],
-//       sectionId: json['details']['SectionId'],
-//     );
-//   }
-
-//   Map<String, dynamic> toJson() => {
-//         'id': id,
-//         'details': {
-//           'filename': filename,
-//           'filetype': filetype,
-//           'globalAttachments': globalAttachments,
-//           'name': name,
-//           'base64img': base64img,
-//           'PointId': pointId,
-//           'RemarkofFile': remarkOfFile,
-//           'SectionId': sectionId,
-//         },
-//       };
-// }
-
-// class UploadImageClass extends StatefulWidget {
-//   UploadImageClass({super.key, required this.selectedForm});
-//   String selectedForm;
-
-//   @override
-//   State<UploadImageClass> createState() => _UploadImageClassState();
-// }
-
-// class _UploadImageClassState extends State<UploadImageClass> {
-//   List<ImageInfo> _imageList = [];
-
-//   ///
-//   ///
-//   ///
-//   Future<void> _pickImages() async {
-//     List<XFile>? images = await ImagePicker().pickMultiImage();
-//     if (images != null) {
-//       List<ImageInfo> imageInfos = [];
-//       for (XFile image in images) {
-//         final bytes = await image.readAsBytes();
-//         final base64Image = base64Encode(bytes);
-//         final filename = image.name;
-//         final filetype = 'image/${image.path.split('.').last}';
-//         final imageInfo = ImageInfo(
-//           id: 2,
-//           filename: filename,
-//           filetype: filetype,
-//           globalAttachments: true,
-//           name: 'tedst',
-//           base64img: base64Image,
-//           pointId: '1',
-//           remarkOfFile: 'ksksks',
-//           sectionId: '1',
-//         );
-//         imageInfos.add(imageInfo);
-//       }
-//       setState(() {
-//         _imageList.addAll(imageInfos);
-//       });
-//     }
-//   }
-
-//   ///
-//   ///
-//   ///
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         ElevatedButton(
-//             onPressed: () {
-//               _pickImages();
-//             },
-//             child: Text("select image")),
-//         ElevatedButton(
-//             onPressed: () {
-//               // print(object);
-//             },
-//             child: Text("prinnt count")),
-//         GridView.builder(
-//           physics: NeverScrollableScrollPhysics(),
-//           shrinkWrap: true,
-//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//               crossAxisCount: 3, childAspectRatio: 0.8),
-//           itemCount: _imageList.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             final imageInfo = _imageList[index];
-//             final imageBytes = base64Decode(imageInfo.base64img);
-
-//             return Column(
-//               children: [
-//                 Container(
-//                   height: 120,
-//                   child: Image.memory(
-//                     imageBytes,
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//                 Text(imageInfo.filename),
-//               ],
-//             );
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-////
-///
-///
-///
-///
-///
-/// v3
-
 class UploadImageClass extends StatefulWidget {
   UploadImageClass({super.key, required this.selectedForm});
   String selectedForm;
@@ -228,22 +19,20 @@ class UploadImageClass extends StatefulWidget {
 }
 
 class _UploadImageClassState extends State<UploadImageClass> {
-  List<Map<String, String>> imagesList = [];
+  List<Map<String, Object>> imagesList = [];
   List<Map<String, dynamic>> imageJsonList = [];
 
   Future<void> pickImages() async {
     final List<XFile> selectedImages = await ImagePicker().pickMultiImage();
 
-    if (selectedImages != Null) {
+    if (selectedImages != null) {
       for (XFile image in selectedImages) {
         final bytes = await File(image.path).readAsBytes();
-        final String base64Image = base64Encode(bytes);
-        final String fileType = image.name.split('.').last;
         final Map<String, dynamic> imageInfo = {
           "id": imagesList.length + 1, // assign an ID to each image
           "details": {
             "filename": image.name,
-            "filetype": fileType,
+            "filetype": image.name.split('.').last,
             "globalAttachments": true,
             "name": "tedst",
             "PointId": "1",
@@ -251,14 +40,13 @@ class _UploadImageClassState extends State<UploadImageClass> {
             "SectionId": "1"
           }
         };
-        final Map<String, String> imageData = {
+        final Map<String, Object> imageData = {
           "imageName": image.name,
-          "imageBase64": base64Image,
+          "imageBlob": bytes,
         };
 
         setState(() {
           imagesList.add(imageData);
-
           imageJsonList.add(imageInfo);
         });
       }
@@ -270,50 +58,48 @@ class _UploadImageClassState extends State<UploadImageClass> {
     return Column(
       children: [
         ElevatedButton(
-            onPressed: () {
-              pickImages();
-            },
-            child: Text("select image")),
+          onPressed: () {
+            pickImages();
+          },
+          child: Text("Select Image"),
+        ),
         ElevatedButton(
-            onPressed: () {
-              print(imageJsonList);
-              // print(imagesList);
-            },
-            child: Text("prinnt count")),
+          onPressed: () {
+            print("Image JSON List");
+            print(imageJsonList);
+            print("Image Only List");
+            print(imagesList);
+          },
+          child: Text("Print Count"),
+        ),
         ElevatedButton(
-            onPressed: () {
-              // print(imagesList);
-              // print(imagesList[1]["imageBase64"]);
-              insertImageData(imagesList);
-              print("button pressed");
-            },
-            child: Text("Add images to database")),
+          onPressed: () async {
+            ImageDatabaseHelper.printImagesFromDatabase();
+          },
+          child: Text("Print Contents of Database"),
+        ),
         ElevatedButton(
-            onPressed: () {
-              printImageData();
-            },
-            child: Text("Print contents of image database ")),
+          onPressed: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ShowImagesPage()),
+            );
+          },
+          child: Text("Show images in database"),
+        ),
         ElevatedButton(
-            onPressed: () {
-              clearImageData();
-            },
-            child: Text("delete all images from database ")),
-        ElevatedButton(
-            onPressed: () {
-              // ImageUploadFunctions.uploadImageData();
-              ImageUploadFunctions.uploadAsampleImagetoDatabase();
-            },
-            child: Text("Upload image data to cloud ")),
-        ElevatedButton(
-            onPressed: () {
-              printAllData();
-            },
-            child: Text("Print all data from database in json")),
+          onPressed: () async {
+            await ImageDatabaseHelper.saveImagesToDatabase(imagesList);
+          },
+          child: Text("Insert the images to database"),
+        ),
         GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, childAspectRatio: 0.8),
+            crossAxisCount: 3,
+            childAspectRatio: 0.8,
+          ),
           itemCount: imagesList.length,
           itemBuilder: (BuildContext context, int index) {
             final image = imagesList[index];
@@ -324,7 +110,7 @@ class _UploadImageClassState extends State<UploadImageClass> {
                     Container(
                       height: 120,
                       child: Image.memory(
-                        base64Decode(image['imageBase64']!),
+                        image['imageBlob'] as Uint8List,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -351,5 +137,120 @@ class _UploadImageClassState extends State<UploadImageClass> {
         SizedBox(height: 40),
       ],
     );
+  }
+}
+
+///
+///
+///
+///
+///
+
+class ShowImagesPage extends StatefulWidget {
+  @override
+  _ShowImagesPageState createState() => _ShowImagesPageState();
+}
+
+class _ShowImagesPageState extends State<ShowImagesPage> {
+  List<Uint8List> unit8listvariable = [];
+  List<Uint8List> unit8listvariable_helper = [];
+  List<Image> imageList = [];
+  List<Image> imageListHelper = [];
+  // List ImageMap;
+  @override
+  void initState() {
+    super.initState();
+    fetchDataFromDatabase();
+  }
+
+  fetchDataFromDatabase() async {
+    unit8listvariable_helper = await ImageDatabaseHelper.getAllImages();
+    imageListHelper =
+        unit8listvariable_helper.map((e) => Image.memory(e)).toList();
+
+    setState(() {
+      unit8listvariable = unit8listvariable_helper;
+      imageList = imageListHelper;
+    });
+    print("printing from the init state ");
+    print(unit8listvariable);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('All Images'),
+        ),
+        body: SingleChildScrollView(
+          // child: FutureBuilder<List<String>>(
+          //   builder: (context, snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return Center(child: CircularProgressIndicator());
+          //     } else if (snapshot.hasError) {
+          //       return Center(child: Text('Error: ${snapshot.error}'));
+          //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          //       return Center(child: Text('No images found'));
+          //     } else {
+          // return
+
+          ///
+          ///
+          ///
+          /// this
+          //   child: ListView.builder(
+          // physics: NeverScrollableScrollPhysics(),
+          // shrinkWrap: true,
+          ///
+          ///
+          ///
+          ///
+
+          // itemCount: snapshot.data!.length,
+          // itemBuilder: (context, index) {
+          //   return Image.asset(snapshot.data![index]);
+          // },
+
+          ///
+          ///
+          ///
+          ///this
+
+          //   itemCount: imageList.length,
+          //   itemBuilder: (context, index) {
+          //     Uint8List bytes =
+          //         base64Decode(unit8listvariable_helper[index] as String);
+          //     return Image.memory(bytes);
+          //   },
+          // )
+          //     }
+          //   },
+          // ),
+          // ),
+          // child: GridView.builder(
+          //     physics: NeverScrollableScrollPhysics(),
+          //     shrinkWrap: true,
+          //     itemCount: 1,
+          //     gridDelegate:
+          //         SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          //     itemBuilder: (context, index) {
+          //       return Container(
+          //           // child: Image.asset(),
+          //           );
+          //     }),
+          child: GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: imageList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return imageList[index];
+            },
+          ),
+        ));
   }
 }
