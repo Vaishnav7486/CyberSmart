@@ -39,7 +39,8 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => Homepage(
-                              projectID: "c0vn17t9",
+                              projectID: "54ymc6gh",
+                              // previous project id was c0vn17t9
                             )));
               },
               child: Container(
@@ -59,7 +60,8 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Project Id : c0vn17t9",
+                      "Project Id : 54ymc6gh",
+                      // 54ymc6gh
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(height: 10),
@@ -77,28 +79,28 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             // /add projec to database
             // /
             // /
-            // ElevatedButton(
-            //     onPressed: () async {
-            //       String isSuccess =
-            //           await DBFunctions.addProjectToDatabaseSampl();
-            //       if (isSuccess == "success") {
-            //         Fluttertoast.showToast(msg: "Project added to database");
-            //       } else if (isSuccess == "failed") {
-            //         Fluttertoast.showToast(msg: "Failed to add project");
-            //       }
-            //     },
-            //     child: Text("create new project with id c0vn17t9")),
+            ElevatedButton(
+                onPressed: () async {
+                  String isSuccess =
+                      await DBFunctions.addProjectToDatabaseSampl();
+                  if (isSuccess == "success") {
+                    Fluttertoast.showToast(msg: "Project added to database");
+                  } else if (isSuccess == "failed") {
+                    Fluttertoast.showToast(msg: "Failed to add project");
+                  }
+                },
+                child: Text("create new project with id 54ymc6gh")),
 
             // /
             // /
             // /print all contents of database
             // /
             // // /
-            // ElevatedButton(
-            //     onPressed: () {
-            //       DBFunctions.printAllContentsofDatabase();
-            //     },
-            //     child: Text("print contents of database")),
+            ElevatedButton(
+                onPressed: () {
+                  DBFunctions.printAllContentsofDatabase();
+                },
+                child: Text("print contents of database")),
 
             // /
             // /
@@ -116,22 +118,22 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             // /
             // /
             // /
-            // ElevatedButton(
-            //     onPressed: () {
-            //       DBFunctions.pushSampleDataToSection1();
-            //     },
-            //     child: Text("set sample data to section 1")),
+            ElevatedButton(
+                onPressed: () {
+                  DBFunctions.pushSampleDataToSection1();
+                },
+                child: Text("set sample data to section 1")),
 
             // /
             // /
             // /
-            // /print contents of section1 where id = c0vn17t9
+            // /print contents of section1 where id = 54ymc6gh
             // /
             // /
             // /
             ElevatedButton(
                 onPressed: () {
-                  DBFunctions.returnsection1instance('c0vn17t9');
+                  DBFunctions.returnsection1instance('54ymc6gh');
                 },
                 child: Text("print section 1 data")),
 

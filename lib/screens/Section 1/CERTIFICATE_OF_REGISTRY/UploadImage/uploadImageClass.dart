@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:cybersmart/services/api_operations.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import 'package:cybersmart/helper/imageDatabaseHelper.dart';
@@ -63,20 +64,41 @@ class _UploadImageClassState extends State<UploadImageClass> {
           },
           child: Text("Select Image"),
         ),
+
+        ///
+        ///
+        ///
+        ///
+
+        ///
+        ///
+        ///
+        ///
+
+        ///
+        ///
+        ///
+        ///
         ElevatedButton(
           onPressed: () {
             print("Image JSON List");
             print(imageJsonList);
-            print("Image Only List");
-            print(imagesList);
+            // print("Image Only List");
+            // print(imagesList);
           },
-          child: Text("Print Count"),
+          child: Text("Print contents of detail json"),
         ),
+        // ElevatedButton(
+        //   onPressed: () async {
+        //     ImageDatabaseHelper.printImagesFromDatabase();
+        //   },
+        //   child: Text("Print Contents of Database"),
+        // ),
         ElevatedButton(
           onPressed: () async {
-            ImageDatabaseHelper.printImagesFromDatabase();
+            ImageDatabaseHelper.deleteAllImagesFromDatabase();
           },
-          child: Text("Print Contents of Database"),
+          child: Text("Delete all images in database"),
         ),
         ElevatedButton(
           onPressed: () async {
@@ -91,8 +113,40 @@ class _UploadImageClassState extends State<UploadImageClass> {
           onPressed: () async {
             await ImageDatabaseHelper.saveImagesToDatabase(imagesList);
           },
-          child: Text("Insert the images to database"),
+          child: Text("save images to db"),
         ),
+        // SizedBox(height: 40),
+        // ElevatedButton(
+        //   onPressed: () async {
+        //     String imageJson = await ImageDatabaseHelper.getAllImagesInJson();
+        //     print(imageJson);
+        //   },
+        //   child: Text("print contents in json"),
+        // ),
+        // SizedBox(height: 40),
+        // SizedBox(height: 40),
+        // ElevatedButton(
+        //   onPressed: () async {
+        //     ApiOperations.syncImagesToCloud();
+        //   },
+        //   child: Text("sync images to cloud"),
+        // ),
+
+        ///
+        ///
+        ///
+        ///
+
+        ///
+        ///
+        ///
+        ///
+
+        ///
+        ///
+        ///
+        ///
+        SizedBox(height: 40),
         GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -183,74 +237,21 @@ class _ShowImagesPageState extends State<ShowImagesPage> {
           title: Text('All Images'),
         ),
         body: SingleChildScrollView(
-          // child: FutureBuilder<List<String>>(
-          //   builder: (context, snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return Center(child: CircularProgressIndicator());
-          //     } else if (snapshot.hasError) {
-          //       return Center(child: Text('Error: ${snapshot.error}'));
-          //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          //       return Center(child: Text('No images found'));
-          //     } else {
-          // return
-
-          ///
-          ///
-          ///
-          /// this
-          //   child: ListView.builder(
-          // physics: NeverScrollableScrollPhysics(),
-          // shrinkWrap: true,
-          ///
-          ///
-          ///
-          ///
-
-          // itemCount: snapshot.data!.length,
-          // itemBuilder: (context, index) {
-          //   return Image.asset(snapshot.data![index]);
-          // },
-
-          ///
-          ///
-          ///
-          ///this
-
-          //   itemCount: imageList.length,
-          //   itemBuilder: (context, index) {
-          //     Uint8List bytes =
-          //         base64Decode(unit8listvariable_helper[index] as String);
-          //     return Image.memory(bytes);
-          //   },
-          // )
-          //     }
-          //   },
-          // ),
-          // ),
-          // child: GridView.builder(
-          //     physics: NeverScrollableScrollPhysics(),
-          //     shrinkWrap: true,
-          //     itemCount: 1,
-          //     gridDelegate:
-          //         SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          //     itemBuilder: (context, index) {
-          //       return Container(
-          //           // child: Image.asset(),
-          //           );
-          //     }),
-          child: GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: imageList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return imageList[index];
-            },
-          ),
+          child: imageList.length == 0
+              ? Text("empty")
+              : GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: imageList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return imageList[index];
+                  },
+                ),
         ));
   }
 }

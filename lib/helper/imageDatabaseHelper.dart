@@ -167,16 +167,6 @@
 //   }
 // }
 
-// Future<void> clearImageData() async {
-//   final Database database = await openDatabase(
-//     join(await getDatabasesPath(), 'image_data.db'),
-//     version: 1,
-//   ); // Assuming you have a function named "getDatabase()" that returns a Sqflite database instance.
-
-//   await database.delete(
-//       'image_data'); // This will delete all rows from the "image_data" table.
-// }
-
 // class ImageUploadFunctions {
 //   static String baseUrl =
 //       "https://e75s884i3d.execute-api.eu-west-1.amazonaws.com/dev/putsignedurl-surveyattachments/";
@@ -565,11 +555,7 @@ import 'dart:typed_data';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 class ImageDatabaseHelper {
   static final String _databaseName = 'image_database.db';
@@ -620,6 +606,11 @@ class ImageDatabaseHelper {
     print("complete adding images to database");
   }
 
+  static Future<void> deleteAllImagesFromDatabase() async {
+    final db = await _database();
+    db.delete(_tableName);
+  }
+
   static Future<void> printImagesFromDatabase() async {
     final Database db = await _database();
     final List<Map<String, dynamic>> result = await db.query(_tableName);
@@ -629,84 +620,6 @@ class ImageDatabaseHelper {
       print('Image Name: $imageName, Image Blob: ${imageBlob.toString()}');
     }
   }
-
-  ///
-  ///
-  ///
-  ///another version
-
-  // static Future<List<String>> getAllImages() async {
-  //   try {
-  //     final db = await _database();
-  //     List<String> whatIsThis;
-  //     final List<Map<String, dynamic>> maps = await db.query(_tableName);
-  //     print("this is something crucial being printed");
-  //     // print(maps);
-  //     print("this many images are in the database ${maps.length}");
-  //     whatIsThis = List.generate(maps.length, (i) => maps[i]["imageBlob"]);
-  //     print(whatIsThis);
-  //     return whatIsThis;
-  //   } catch (e) {
-  //     throw e;
-  //   }
-
-  //   // print(maps.runtimeType);
-  //   // return maps;
-  // }
-
-  ///
-  ///
-  ///
-  ///
-  ///yet another version
-
-  // static Future<List<String>> getAllImages() async {
-  //   try {
-  //     final db = await _database();
-  //     final List<Map<String, dynamic>> maps = await db.query(_tableName);
-  //     print("this many images are in the database ${maps.length}");
-  //     List<String> whatIsThis = List.generate(maps.length, (i) {
-  //       Uint8List bytes = maps[i]["imageBlob"] as Uint8List;
-  //       return base64Encode(bytes);
-  //     });
-  //     print(whatIsThis);
-  //     return whatIsThis;
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
-
-  //this was a working version
-
-  // static Future<List<String>> getAllImages() async {
-  //   try {
-  //     final db = await _database();
-  //     List<String> images = [];
-  //     List<Map<String, dynamic>> result = await db.query(_tableName);
-  //     for (var item in result) {
-  //       images.add(item['imageBlob']);
-  //     }
-  //     return images;
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
-
-//   static Future<List<String>> getAllImages() async {
-//   try {
-//     final db = await _database();
-//     final List<Map<String, dynamic>> maps = await db.query(_tableName);
-//     List<String> images = [];
-//     for (var map in maps) {
-//       Uint8List bytes = map['imageBlob'].cast<int>();
-//       String imageBase64 = base64Encode(bytes);
-//       images.add(imageBase64);
-//     }
-//     return images;
-//   } catch (e) {
-//     throw e;
-//   }
-// }
 
   static Future<List<Uint8List>> getAllImages() async {
     try {
@@ -721,6 +634,27 @@ class ImageDatabaseHelper {
       }
       print(images);
       return images;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  static Future<String> getAllImagesInJson() async {
+    try {
+      final db = await _database();
+      final List<Map<String, dynamic>> maps = await db.query(_tableName);
+      print("This many images are in the database: ${maps.length}");
+
+      List<Map<String, dynamic>> imageList = [];
+
+      for (Map<String, dynamic> map in maps) {
+        imageList.add({
+          'imageName': map['imageName'],
+          'imageBlob': map['imageBlob'],
+        });
+      }
+
+      return json.encode(imageList);
     } catch (e) {
       throw e;
     }

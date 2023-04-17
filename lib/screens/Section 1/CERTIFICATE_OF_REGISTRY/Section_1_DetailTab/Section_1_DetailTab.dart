@@ -1,4 +1,5 @@
 import 'package:cybersmart/helper/database_functions.dart';
+import 'package:cybersmart/helper/imageDatabaseHelper.dart';
 import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
 import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/Add%20to%20global/addtoglobal.dart';
 import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/uploadImageClass.dart';
@@ -377,6 +378,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                             Fluttertoast.showToast(
                                 msg: "failed to update values to database");
                           }
+                          //  await ImageDatabaseHelper.saveImagesToDatabase(imagesList);
                         },
                         child: Center(
                           child: Container(
@@ -639,15 +641,17 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                           border: InputBorder.none,
                                           icon: Icon(
                                             Icons.calendar_month_outlined,
+                                            // Icons.abc,
                                             color: Color(0xff000000),
                                           ),
                                           labelText:
                                               IssueDateHintTextReturningFunction()
+                                          // "issue date"
                                           //     ??
                                           // "Issue date",
                                           ,
                                           errorText: validator
-                                              ? 'Value\t be Empty'
+                                              ? 'Value be Empty'
                                               : null,
                                           labelStyle: TextStyle(
                                             color: Color(
@@ -696,7 +700,8 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                                     .format(pickedDate);
                                             setState(() {
                                               // mark 5 - issue date selection
-                                              issuedateController.text =
+                                              // issuedateController.text , '
+                                              issue_date_value =
                                                   formattedDate.toString();
                                               issue_date_value =
                                                   formattedDate.toString();
@@ -810,6 +815,8 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                           ),
                                           labelText:
                                               ExpiryDateHintTextReturningFunction()
+                                          // "expiry date"
+                                          // "expiry date"
                                           //     ??
                                           // "Expiry Date",
                                           ,
@@ -862,6 +869,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                                               // mark 6 - expiry date selection
                                               // expiryDateController.text =
                                               //     formattedDate.toString();
+                                              // expiryDateController.text =
                                               expiry_date_value =
                                                   formattedDate.toString();
                                               switch (widget.selectedForm) {

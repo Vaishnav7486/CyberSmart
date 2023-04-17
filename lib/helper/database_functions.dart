@@ -47,7 +47,7 @@ class DBFunctions {
   }
 
   static Future<String> addProjectToDatabaseSampl() async {
-    String projectID = "c0vn17t9";
+    String projectID = "54ymc6gh";
     String projectName = "sample project";
     try {
       await DBFunctions._db.rawInsert("""
@@ -82,9 +82,9 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
   }
 
   static Future pushSampleDataToSection1() async {
-    String project_id = "c0vn17t9";
+    String project_id = "54ymc6gh";
     String section1SampleDataString = """{
-    "project_id": "c0vn17t9",
+    "project_id": "54ymc6gh",
     "check_id": "",
     "presurvey_info": [
         {
@@ -314,7 +314,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
   static late String section1jsonStringToStoreInDatabase;
   static Future<String> saveAndUpdateInstanceOfSection1ToDatabase(
       Section1Modelsample1 section1instance) async {
-    String project_id = "c0vn17t9";
+    String project_id = "54ymc6gh";
     print("this is the instance to store in the section1\n$section1instance");
     section1jsonStringToStoreInDatabase = jsonEncode(section1instance);
     try {
@@ -339,7 +339,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
     late Section1Modelsample1 temp_instanceOfSection1DataFromDB;
     try {
       tempt_secction1DataFromDB = await DBFunctions._db.rawQuery(
-          "SELECT section_1 from projects WHERE project_id = ?", ["c0vn17t9"]);
+          "SELECT section_1 from projects WHERE project_id = ?", ["54ymc6gh"]);
       temp_section1InstancesString =
           tempt_secction1DataFromDB[0]["section_1"] as String;
       // print("printing the temporary instance \n $temp_section1InstancesString");

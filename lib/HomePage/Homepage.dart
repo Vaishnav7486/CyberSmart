@@ -41,7 +41,7 @@ class _HomepageState extends State<Homepage> {
   ];
   int current = 0;
   List data = [
-    Section_1_DetailTab(projectID: "c0vn17t9"),
+    Section_1_DetailTab(projectID: "54ymc6gh"),
     // mark 3 this need to be changed
     Section2(),
     Section_3(),
