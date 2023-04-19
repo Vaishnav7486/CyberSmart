@@ -93,30 +93,7 @@ INSERT INTO projects (project_name,project_id) VALUES (?,?)""",
                     "details": {
                         "no": "1",
                         "attachments": [
-                            {
-                                "details": {
-                                    "filename": "7173-CAPE_DANCER_SA4482.jpg",
-                                    "filetype": "image/jpeg",
-                                    "globalAttachments": true,
-                                    "name": "tedst",
-                                    "PointId": "1",
-                                    "RemarkofFile": "ksksks",
-                                    "SectionId": "1"
-                                },
-                                "id": 1
-                            },
-                            {
-                                "id" : 2,
-                                "details": {
-                                    "filename": "7173-CAPE_DANCER_SA4482.jpg",
-                                    "filetype": "image/jpeg",
-                                    "globalAttachments": true,
-                                    "name": "tedst",
-                                    "PointId": "1",
-                                    "RemarkofFile": "ksksks",
-                                    "SectionId": "1"
-                                }
-                            }
+                            
                         ],
                         "expiry_date": "null",
                         "next_survey_date": "null",

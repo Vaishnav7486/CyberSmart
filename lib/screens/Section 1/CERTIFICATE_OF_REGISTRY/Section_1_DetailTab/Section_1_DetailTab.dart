@@ -4,6 +4,7 @@ import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dar
 import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/Add%20to%20global/addtoglobal.dart';
 import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/uploadImageClass.dart';
 import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/uploadimage.dart';
+import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/ImageUploadSection.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -353,7 +354,8 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                       "images/Question.png",
                     )),
                 content: Text(
-                  'Do you want to mark this check as completed?',
+                  // this is the one that actually works 
+                  'Do you want to mark this check as completed? ath venam da',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.center,
                 ),
@@ -378,6 +380,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                             Fluttertoast.showToast(
                                 msg: "failed to update values to database");
                           }
+                          
                           //  await ImageDatabaseHelper.saveImagesToDatabase(imagesList);
                         },
                         child: Center(
@@ -1216,9 +1219,23 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                         //       },
                         //       child: Text("press this")),
                         // )
-                        UploadImageClass(
-                          selectedForm: widget.selectedForm,
-                        )
+                        ///
+                        ///
+                        ///
+                        ///
+                        ///concentrate from here
+                        ///
+                        ///
+                        ///
+                        ImageUploadSection(
+                            section1Instance: section1ModelInstance,
+                            formName: widget.selectedForm),
+                        // UploadImageClass(
+                        //   selectedForm: widget.selectedForm,
+                        //   // imageListParam: section1ModelInstance.presurveyInfo[0]
+                        //   //     .registryRequirements[0].details.attachments,
+                        //   section1instance: section1ModelInstance,
+                        // )
                       ],
                     ),
                   ),

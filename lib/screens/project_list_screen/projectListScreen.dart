@@ -1,6 +1,6 @@
 import 'package:cybersmart/HomePage/Homepage.dart';
 import 'package:cybersmart/helper/database_functions.dart';
-import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
+import 'package:cybersmart/helper/imageDatabaseHelper.dart';
 import 'package:cybersmart/screens/Section%201/xbcx21/sampleImageUploadScreen.dart';
 import 'package:cybersmart/screens/imageselection_screen/image_selection_screen.dart';
 import 'package:cybersmart/services/api_operations.dart';
@@ -111,7 +111,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
             // /
             // ElevatedButton(
             //     onPressed: () {
-            //       /// DBFunctions.deleteAllcontentsFromDatabase();
+            //       ///DBFunctions.deleteAllcontentsFromDatabase();
             //     },
             //     child: Text("delete all data from database")),
 
@@ -179,6 +179,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                   } else {
                     Fluttertoast.showToast(msg: "failed to update");
                   }
+                  await ApiOperations.syncImagesToCloud();
                 },
                 child: Text("sync")),
 
@@ -194,5 +195,18 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
         ),
       ),
     );
+  }
+}
+
+class Solution {
+  bool containsDuplicate(List<int> nums) {
+    Set<int> setVar = Set<int>();
+    for (int num in nums) {
+      if (setVar.contains(num)) {
+        return true;
+      }
+      setVar.add(num);
+    }
+    return false;
   }
 }

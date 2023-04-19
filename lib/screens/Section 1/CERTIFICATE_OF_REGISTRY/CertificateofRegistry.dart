@@ -29,7 +29,7 @@ class _CertificateofRegistryFormState extends State<CertificateofRegistryForm> {
                       "images/Question.png",
                     )),
                 content: Text(
-                  'Do you want to mark this check as completed?',
+                  'Do you want to mark this check as completed? ath veno da ?? this is useless anyway',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.center,
                 ),

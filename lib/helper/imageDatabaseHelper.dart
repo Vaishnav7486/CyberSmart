@@ -552,10 +552,15 @@
 
 import 'dart:convert';
 import 'dart:typed_data';
+
+import 'package:cybersmart/model%20classes/section%201/section_1_model_class.dart';
+import 'package:cybersmart/screens/Section%201/CERTIFICATE_OF_REGISTRY/UploadImage/uploadImageClass.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'dart:collection';
+import 'package:collection/collection.dart';
 
 class ImageDatabaseHelper {
   static final String _databaseName = 'image_database.db';
@@ -579,36 +584,147 @@ class ImageDatabaseHelper {
     });
   }
 
-  static Future<void> saveImagesToDatabase(
-      List<Map<String, Object>> imageList) async {
-    final Database db = await _database();
-    final Batch batch = db.batch();
-    for (Map<String, Object> imageData in imageList) {
-      final String imageName = imageData['imageName'] as String;
-      final Uint8List imageBytes = imageData['imageBlob'] as Uint8List;
+  static deleteSpecificImageFromImageTable(imageName) async {
+    Database db = await _database();
+    // db.execute(sql);
+    await db.delete(
+      'image_Data',
+      where: 'ImageName = ?',
+      whereArgs: [imageName],
+    );
+  }
 
-      // Compress the image bytes
-      final List<int> compressedBytes =
-          await FlutterImageCompress.compressWithList(
-        imageBytes,
-        minHeight: 600,
-        minWidth: 800,
-        quality: 80,
-      );
+  // static Future<List<Map<String, dynamic>>?> returnSelectedImageBlobAndName(
+  //     List<String> imageNameList) async {
+  //   print("trying to return images blob and name map");
 
-      batch.insert(_tableName, {
-        columnImageName: imageName,
-        columnImageBlob: compressedBytes,
-      });
-      print("adding images to database");
+  //   try {
+  //     if (imageNameList.length != 0) {
+  //       Database db = await _database();
+
+  //       List<Map<String, dynamic>> images = [];
+
+  //       for (String name in imageNameList) {
+  //         print("loop initiated");
+  //         List<Map<String, dynamic>> result = await db.query(_tableName,
+  //             columns: [columnImageBlob],
+  //             where: '$columnImageName = ?',
+  //             whereArgs: [name]);
+
+  //         if (result.isNotEmpty) {
+  //           Uint8List imageBytes = result.first[columnImageBlob];
+  //           Map<String, dynamic> imageMap = {
+  //             'imageName': name,
+  //             'imageBlob': imageBytes
+  //           };
+  //           images.add(imageMap);
+  //         }
+  //       }
+
+  //       await db.close();
+  //       print("returning images list");
+  //       print(images);
+
+  //       return images;
+  //     } else {
+  //       print("NO image name found in list");
+  //     }
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
+
+  ///
+  ///
+  ///
+  ///updated functino for returning the image name and blob as an instance of class
+  ///
+  static Future<List<ImageNameAndBlob>> returnSelectedImageBlobAndName(
+      List<String> imageNameList) async {
+    print("trying to return images blob and name map");
+
+    try {
+      Database db = await _database();
+
+      List<ImageNameAndBlob> images = [];
+
+      for (String name in imageNameList) {
+        print("loop initiated");
+        List<Map<String, dynamic>> result = await db.query(
+          _tableName,
+          columns: [columnImageBlob],
+          where: '$columnImageName = ?',
+          whereArgs: [name],
+        );
+
+        if (result.isNotEmpty) {
+          Uint8List imageBytes = result.first[columnImageBlob];
+          //  imageBlob = imageBytes.toList();
+          ImageNameAndBlob imageNameAndBlob =
+              ImageNameAndBlob(imageName: name, imageBlob: imageBytes);
+          images.add(imageNameAndBlob);
+          // print("this is the image name and blob");
+          // print(imageNameAndBlob.imageBlob);
+          // print(imageNameAndBlob.imageName);
+        }
+      }
+
+      await db.close();
+      // print("returning images list");
+      // print(images);
+
+      return images;
+    } catch (e) {
+      throw e;
     }
-    await batch.commit();
-    print("complete adding images to database");
   }
 
   static Future<void> deleteAllImagesFromDatabase() async {
     final db = await _database();
     db.delete(_tableName);
+  }
+
+  static Future<void> saveImagesToDatabase(
+      List<ImageNameAndBlob> imageList) async {
+    final Database db = await _database();
+    final Batch batch = db.batch();
+    for (ImageNameAndBlob imageData in imageList) {
+      final String imageName = imageData.imageName;
+      final List<int> imageBytes = imageData.imageBlob;
+      final Uint8List imageBytesUint8 = Uint8List.fromList(imageBytes);
+      // Compress the image bytes
+      // Compress the image bytes
+      final List<int> compressedBytes =
+          await FlutterImageCompress.compressWithList(
+        imageBytesUint8,
+        minHeight: 600,
+        minWidth: 800,
+        quality: 80,
+      );
+
+      // Check if an image with the same name already exists
+      final List<Map<String, dynamic>> result = await db.query(_tableName,
+          where: '$columnImageName = ?', whereArgs: [imageName]);
+      if (result.isNotEmpty) {
+        // Update the existing image with the new compressed image bytes
+        final int id = result[0][columnId];
+        batch.update(
+          _tableName,
+          {columnImageBlob: compressedBytes},
+          where: '$columnId = ?',
+          whereArgs: [id],
+        );
+      } else {
+        // Add the new image to the database
+        batch.insert(_tableName, {
+          columnImageName: imageName,
+          columnImageBlob: compressedBytes,
+        });
+      }
+      print("adding images to database");
+    }
+    await batch.commit();
+    print("complete adding images to database");
   }
 
   static Future<void> printImagesFromDatabase() async {
@@ -619,6 +735,22 @@ class ImageDatabaseHelper {
       final Uint8List imageBlob = row[columnImageBlob] as Uint8List;
       print('Image Name: $imageName, Image Blob: ${imageBlob.toString()}');
     }
+  }
+
+  Future<List<Map<String, Uint8List>>> getImageBlobs(
+      List<String> imageNames) async {
+    final Database db = await openDatabase(
+      // path to database file
+      'path/to/database.db',
+    );
+
+    final List<Map<String, Uint8List>> imageBlobs = [];
+
+    for (final String imageName in imageNames) {}
+
+    await db.close();
+
+    return imageBlobs;
   }
 
   static Future<List<Uint8List>> getAllImages() async {
@@ -639,19 +771,32 @@ class ImageDatabaseHelper {
     }
   }
 
+// pritns the number of rows in the database
+  static Future<int> getRowCount() async {
+    final db = await _database(); // Obtain a reference to the database.
+    final result = await db.rawQuery(
+        'SELECT COUNT(*) FROM $_tableName'); // Execute an SQL query that counts the rows.
+    final count = result.first.values.first
+        as int; // Extract the count from the query result.
+    print(count);
+    return count;
+  }
+
   static Future<String> getAllImagesInJson() async {
     try {
       final db = await _database();
       final List<Map<String, dynamic>> maps = await db.query(_tableName);
-      print("This many images are in the database: ${maps.length}");
 
       List<Map<String, dynamic>> imageList = [];
+      print("this many items are in the database");
+      print(imageList.length);
 
       for (Map<String, dynamic> map in maps) {
         imageList.add({
           'imageName': map['imageName'],
           'imageBlob': map['imageBlob'],
         });
+        print(imageList);
       }
 
       return json.encode(imageList);
@@ -659,4 +804,11 @@ class ImageDatabaseHelper {
       throw e;
     }
   }
+}
+
+class ImageNameAndBlob {
+  String imageName;
+  Uint8List imageBlob;
+
+  ImageNameAndBlob({required this.imageName, required this.imageBlob});
 }

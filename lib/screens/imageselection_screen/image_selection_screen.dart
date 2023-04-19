@@ -18,7 +18,8 @@ class _ImageSelectinoScreenState extends State<ImageSelectinoScreen> {
       child: Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
-            child: UploadImageClass(selectedForm: "section1")),
+            // child: UploadImageClass(selectedForm: "section1")
+            ),
       ),
     );
   }
